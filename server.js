@@ -28,6 +28,16 @@ const register = require("./routes/registerrouter.js");
 const registerrouter = register.router;
 const loginrouter = require("./routes/loginrouter.js");
 
+app.use(flash())
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false
+}))
+app.use(passport.initialize())
+app.use(passport.session())
+app.use(methodOverride('_method'))
+
 app.use(expresslayouts);
 app.use(express.urlencoded({extended: false}));
 app.use(express.static("public"));

@@ -1,5 +1,6 @@
 const register = require("./registerrouter.js");
 const users = register.users;
+const checkNotAuthenticated = register.checkNotAuthenticated;
 const express = require('express')
 const app = express()
 const router = express.Router();
@@ -8,16 +9,24 @@ const passport = require('passport')
 const flash = require('express-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
-// const initializePassport = require('../passport-config')
+const Pass = require('../passport-config')
+const initializePassport = Pass.initialize;
 
-router.get("/", async (req, res) =>
+initializePassport(
+  passport,
+  email => users.find(user => user.email === email),
+  id => users.find(user => user.id === id)
+)
+
+router.get("/", checkNotAuthenticated, async (req, res) =>
 {
-    res.render("loginview/index.ejs", {users: register.users} );
+    res.render("loginview/index.ejs");
 })
 
-router.post("/", async (req, res) =>  
-{
-    
-})
+router.post('/', checkNotAuthenticated, passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true
+  }))
 
 module.exports = router;

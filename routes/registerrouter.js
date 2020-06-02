@@ -9,12 +9,12 @@ const methodOverride = require('method-override')
 
 const users = [];
 
-router.get("/", async (req, res) =>
+router.get("/", checkNotAuthenticated, async (req, res) =>
 {
     res.render("registerview/index.ejs");
 })
 
-router.post("/", async (req, res) =>
+router.post("/", checkNotAuthenticated, async (req, res) =>
 {
     try
     {
@@ -27,7 +27,7 @@ router.post("/", async (req, res) =>
                 password: hashedPassword
             })
             console.log("SUCCESS")
-        res.redirect("/login");
+        res.redirect("/");
     }
     catch
     {
@@ -37,9 +37,26 @@ router.post("/", async (req, res) =>
     console.log(users);
 })
 
+function checkAuthenticated(req, res, next) {
+  console.log("checkAuthenticated")
+    if (req.isAuthenticated()) {
+      return next()
+    }
+    res.redirect('/login')
+  }
+  
+  function checkNotAuthenticated(req, res, next) {
+    console.log("checkNotAuthenticated")
+    if (req.isAuthenticated()) {
+      return res.redirect('/')
+    }
+    next()
+  }
 
 module.exports = 
 {
+    checkAuthenticated: checkAuthenticated,
+    checkNotAuthenticated: checkNotAuthenticated,
     router: router,
     users: users
 }
