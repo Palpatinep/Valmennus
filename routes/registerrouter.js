@@ -11,7 +11,20 @@ const users = [];
 
 router.get("/", checkNotAuthenticated, async (req, res) =>
 {
-    res.render("registerview/index.ejs");
+  let loggedin = false;
+
+    if (req.isAuthenticated())
+    {
+        loggedin = true;
+    }
+    else
+    {
+        loggedin = false;
+    }
+    res.render("registerview/index.ejs",
+    {
+      loggedin: loggedin
+    });
 })
 
 router.post("/", checkNotAuthenticated, async (req, res) =>
@@ -27,7 +40,7 @@ router.post("/", checkNotAuthenticated, async (req, res) =>
                 password: hashedPassword
             })
             console.log("SUCCESS")
-        res.redirect("/");
+        res.redirect("/login");
     }
     catch
     {
@@ -38,7 +51,6 @@ router.post("/", checkNotAuthenticated, async (req, res) =>
 })
 
 function checkAuthenticated(req, res, next) {
-  console.log("checkAuthenticated")
     if (req.isAuthenticated()) {
       return next()
     }
@@ -46,7 +58,6 @@ function checkAuthenticated(req, res, next) {
   }
   
   function checkNotAuthenticated(req, res, next) {
-    console.log("checkNotAuthenticated")
     if (req.isAuthenticated()) {
       return res.redirect('/')
     }

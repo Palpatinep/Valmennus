@@ -20,7 +20,20 @@ initializePassport(
 
 router.get("/", checkNotAuthenticated, async (req, res) =>
 {
-    res.render("loginview/index.ejs");
+  let loggedin = false;
+
+    if (req.isAuthenticated())
+    {
+        loggedin = true;
+    }
+    else
+    {
+        loggedin = false;
+    }
+    res.render("loginview/index.ejs",
+    {
+      loggedin: loggedin
+    });
 })
 
 router.post('/', checkNotAuthenticated, passport.authenticate('local', {

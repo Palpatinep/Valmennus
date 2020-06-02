@@ -7,18 +7,34 @@ const register = require("./registerrouter.js");
 
 router.get("/", async (req, res) =>
 {
+    let users = "";
+    let loggedin = false;
+
     if (req.isAuthenticated())
+    {
+        users = "Kirjautunut";
+        loggedin = true;
+    }
+    else
+    {
+        users = "Ei Kirjautunut";
+        loggedin = false;
+    }
+
+    if (loggedin)
     {
         res.render("index.ejs",
         {
-            users: "Kirjautunut"
+            users: users,
+            loggedin: loggedin
         })
     }
     else
     {
         res.render("index.ejs",
         {
-            users: "Ei Kirjautunut"
+            users: users,
+            loggedin: loggedin
         })
     }
 })

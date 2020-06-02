@@ -1,6 +1,8 @@
 <h1>Kirjaudu</h1>
 
-<label> Hello</label>
+<% if (messages.error) { %>
+    <%= messages.error %>
+  <% } %>
 
 <form action="/login" method="POST">
     <div>
