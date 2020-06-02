@@ -1,0 +1,9 @@
+h1{
+    color: blue;
+}
+.wrapper{
+    width: 50%;
+    height: 700px;
+    margin: 0 auto;
+    background-color: aliceblue;
+}
