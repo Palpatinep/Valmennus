@@ -24,7 +24,8 @@ app.set("layout", "layouts/indexlayout");
 
 const indexrouter = require("./routes/indexrouter.js");
 const taskrouter = require("./routes/taskrouter.js");
-const registerrouter = require("./routes/registerrouter.js");
+const register = require("./routes/registerrouter.js");
+const registerrouter = register.router;
 const loginrouter = require("./routes/loginrouter.js");
 
 app.use(expresslayouts);

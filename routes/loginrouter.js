@@ -12,7 +12,7 @@ const methodOverride = require('method-override')
 
 router.get("/", async (req, res) =>
 {
-    res.render("loginview/index.ejs");
+    res.render("loginview/index.ejs", {users: register.users} );
 })
 
 router.post("/", async (req, res) =>  

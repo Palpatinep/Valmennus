@@ -37,4 +37,9 @@ router.post("/", async (req, res) =>
     console.log(users);
 })
 
-module.exports = router;
+
+module.exports = 
+{
+    router: router,
+    users: users
+}
