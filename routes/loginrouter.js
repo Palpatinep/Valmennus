@@ -9,8 +9,8 @@ const passport = require('passport')
 const flash = require('express-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
-const Pass = require('../passport-config')
-const initializePassport = Pass.initialize;
+const initializePassport = require('../passport-config')
+const UserModel = require("../models/UserModel.js");
 
 initializePassport(
   passport,

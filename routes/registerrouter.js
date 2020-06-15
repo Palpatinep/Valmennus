@@ -6,6 +6,7 @@ const passport = require('passport')
 const flash = require('express-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
+const UserModel = require("../models/UserModel.js");
 
 const users = [];
 
@@ -39,12 +40,29 @@ router.post("/", checkNotAuthenticated, async (req, res) =>
                 email: req.body.email,
                 password: hashedPassword
             })
-            console.log("SUCCESS")
+        const newUser = new UserModel(
+          {
+            name: req.body.name,
+            email: req.body.email,
+            password: hashedPassword,
+            date: new Date().toString()
+          });
+
+        try
+        {
+            await newUser.save();
+            console.log("New user created");
+            res.redirect("/login");
+        }
+        catch
+        {
+            res.render("/tehtavat");
+            errorMessage: "Virheellinen syöte"
+        }
         res.redirect("/login");
     }
     catch
     {
-        console.log("ERROR")
         res.redirect("/register");
     }
     console.log(users);
