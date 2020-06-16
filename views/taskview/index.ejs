@@ -1,1 +1,45 @@
-<p>ASDASD</p>
+<p>Tehtävät</p>
+
+<a href="/tehtavat/luo">Luo tehtävä</a>
+
+<br>
+<br>
+<br>
+<br>
+
+
+
+<form action="/tehtavat" method="POST"  >
+    <label> <%= rnd %> </label>
+    <input style="visibility: hidden" value="<%= allTasks[rnd].id %>" type="text" name="questionid"></input>
+    <br>
+    <label> Kysymys: <%= allTasks[rnd].question %> </label>
+    <label> Kategoria: <%= allTasks[rnd].category %>  </label>
+    <br>
+    <br>
+    <button type="submit" name="questionchoice" value="<%= allTasks[rnd].correctAnswer %>"> <%= allTasks[rnd].correctAnswer %> </button>
+    <button type="submit" name="questionchoice" value="<%= allTasks[rnd].wrongAnswer1 %>"> <%= allTasks[rnd].wrongAnswer1 %> </button>
+    <button type="submit" name="questionchoice" value="<%= allTasks[rnd].wrongAnswer2 %>"> <%= allTasks[rnd].wrongAnswer2 %> </button>
+    <button type="submit" name="questionchoice" value="<%= allTasks[rnd].wrongAnswer3 %>"> <%= allTasks[rnd].wrongAnswer3 %> </button>
+</form>
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<% allTasks.forEach(element => { %>
+    <br>
+    <div> <%= element.question %> </div>
+    <div> <%= element.correctAnswer %> </div>
+<% }) %>

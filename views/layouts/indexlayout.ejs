@@ -13,7 +13,7 @@
     <div>
         <a href="/">Etusivu</a>
         <a href="/tehtavat">Tehtävät</a>
-        <% if (locals.loggedin == false) { %>
+        <% if (locals.loggedin != true) { %>
         <a href="/login">Kirjaudu</a>
         <a href="/register">Rekisteröidy</a>
         <label>EI KIRJAUTUNUT</label>

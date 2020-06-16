@@ -1,0 +1,40 @@
+CREATE
+
+<form action="/tehtavat/luo" method="POST">
+    <div>
+        <label for="question" name="question">Kysymys</label>
+        <input type="text" id="question" name="question" required>
+    </div>
+    <div>
+        <label for="description" name="description">Lisätiedot</label>
+        <input type="text" id="description" name="description" required>
+    </div>
+    <div>
+        <label for="category" name="category">Kategoria</label>
+
+        <% const categories = ["Valioliiga", "La Liga", "Bundesliga", "Serie A"] %>
+        <select name="category">
+            <% categories.forEach(element => { %>
+            <option label=" <%= element %>" value="<%= element %>">
+            <% }) %>
+        </select>
+    </div>
+    <div>
+        <label name="correctanswer">Oikea vastaus</label>
+        <input type="text" id="correctanswer" name="correctanswer" required>
+    </div>
+    <div>
+        <label name="wronganswer1">Väärä vastaus 1</label>
+        <input type="text" id="wronganswer1" name="wronganswer1" required>
+    </div>
+    <div>
+        <label name="wronganswer2">Väärä vastaus 2</label>
+        <input type="text" id="wronganswer2" name="wronganswer2">
+    </div>
+    <div>
+        <label name="wronganswer3">Väärä vastaus 3</label>
+        <input type="text" id="wronganswer3" name="wronganswer3">
+    </div>
+    
+    <button type="submit">OK</button>
+</form>
