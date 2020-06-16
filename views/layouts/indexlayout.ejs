@@ -16,7 +16,9 @@
         <% if (locals.loggedin == false) { %>
         <a href="/login">Kirjaudu</a>
         <a href="/register">Rekisteröidy</a>
+        <label>EI KIRJAUTUNUT</label>
         <% } else { %>
+        <label>KIRJAUTUNUT</label>
         <form action="/logout?_method=DELETE" method="POST">
             <button type="submit">Log Out</button>
           </form>

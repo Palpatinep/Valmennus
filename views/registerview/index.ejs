@@ -1,5 +1,9 @@
 <h1>Rekisteröidy</h1>
 
+<% if (locals.errorMessage != null) { %>
+        <div class="errorMessage"><%= errorMessage %></div>    
+<% } %>
+
 <form action="/register" method="POST">
     <div>
         <label for="name" name="name">Nimitunnus</label>
@@ -12,6 +16,10 @@
     <div>
         <label name="email">Salasana</label>
         <input type="password" id="password" name="password" required>
+    </div>
+    <div>
+        <label name="email">Salasana uudelleen</label>
+        <input type="password" id="password2" name="password2" required>
     </div>
     
     <button type="submit">Rekisteröidy</button>
