@@ -12,16 +12,12 @@
     <p>Tehtävät</p>
 
 
-    <div id="answerresult"></div>
+    <h2 id="answerresult"></h2>
 
 
-    <a href="/tehtavat/luo">Luo tehtävä</a>
+    
 
     <br>
-    <br>
-    <br>
-    <br>
-
 
 
     <form action="/tehtavat" >
@@ -33,61 +29,41 @@
         <br>
         <br>
         <br>
-        <button class="answerbutton" id="questionchoice1" name="questionchoice" value="<%=Task.correctAnswer%>"> <%=Task.correctAnswer%> </button>
-        <button class="answerbutton" id="questionchoice2" name="questionchoice" value="<%=Task.wrongAnswer1%>"> <%=Task.wrongAnswer1%> </button>
-        <button class="answerbutton" id="questionchoice3" name="questionchoice" value="<%=Task.wrongAnswer2%>"> <%=Task.wrongAnswer2%> </button>
-        <button class="answerbutton" id="questionchoice4" name="questionchoice" value="<%=Task.wrongAnswer3%>"> <%=Task.wrongAnswer3%> </button>
+        <div id="shuffle">
+            <button class="answerbutton" id="correctanswer" name="questionchoice" value="<%=Task.correctAnswer%>"><%=Task.correctAnswer%></button>
+            <button class="answerbutton" id="wronganswer1" name="questionchoice" value="<%=Task.wrongAnswer1%>"><%=Task.wrongAnswer1%></button>
+            <button class="answerbutton" id="wronganswer2" name="questionchoice" value="<%=Task.wrongAnswer2%>"><%=Task.wrongAnswer2%></button>
+            <button class="answerbutton" id="wronganswer3" name="questionchoice" value="<%=Task.wrongAnswer3%>"><%=Task.wrongAnswer3%></button>
+        </div>
     </form>
 
     <br>
+    <br>
     <a href="/tehtavat">Seuraava tehtävä</a>
+    <br>
+    <br>
+    <br>
+    <br>
+    <a href="/tehtavat/luo">Luo tehtävä</a>
 
-    <br>
-    <br>
-
-
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
 
     <script>
 
         $(document).ready()
         {
-            var test = '<%- JSON.stringify(Task) %>'
-            var obj = JSON.parse(test)
-            console.log(test)
-            console.log(obj)
+            //
+            // Use res.render() variables in client script: 
+            // var test = '<%- JSON.stringify(Task) %>'
+            // var obj = JSON.parse(test)
+            //
 
-            let arr = [obj.correctAnswer, obj.wrongAnswer1, obj.wrongAnswer2, obj.wrongAnswer3]
+            var parent = $("#shuffle");
+            var divs = parent.children();
 
-            console.log(arr);
-
-            for (let i = arr.length - 1; i > 0; i--) 
+            while (divs.length) 
             {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
+                parent.append(divs.splice(Math.floor(Math.random() * divs.length), 1)[0]);
             }
-            console.log(arr);
-
-            document.getElementById("questionchoice1").innerHTML = arr[0];
-            document.getElementById("questionchoice2").innerHTML = arr[1];
-            document.getElementById("questionchoice3").innerHTML = arr[2];
-            document.getElementById("questionchoice4").innerHTML = arr[3];
-            document.getElementById("questionchoice1").value = arr[0];
-            document.getElementById("questionchoice2").value = arr[1];
-            document.getElementById("questionchoice3").value = arr[2];
-            document.getElementById("questionchoice4").value = arr[3];
         }
 
         $(function(){
@@ -99,24 +75,30 @@
                 var test = '<%- JSON.stringify(Task) %>'
                 var obj = JSON.parse(test)
 
+                console.log(this.innerHTML)
+                console.log(obj.correctAnswer)
+
                 if (this.innerHTML == obj.correctAnswer)
                 {
                     document.getElementById("answerresult").innerHTML = "Oikea vastaus"
-                    document.getElementById("questionchoice1").disabled = true;
-                    document.getElementById("questionchoice2").disabled = true;
-                    document.getElementById("questionchoice3").disabled = true;
-                    document.getElementById("questionchoice4").disabled = true;
+                    document.getElementById("correctanswer").disabled = true;
+                    document.getElementById("wronganswer1").disabled = true;
+                    document.getElementById("wronganswer2").disabled = true;
+                    document.getElementById("wronganswer3").disabled = true;
                 }
                 else
                 {
                     document.getElementById("answerresult").innerHTML = "Väärä vastaus"
-                    document.getElementById("questionchoice1").disabled = true;
-                    document.getElementById("questionchoice2").disabled = true;
-                    document.getElementById("questionchoice3").disabled = true;
-                    document.getElementById("questionchoice4").disabled = true;
+                    document.getElementById("correctanswer").disabled = true;
+                    document.getElementById("wronganswer1").disabled = true;
+                    document.getElementById("wronganswer2").disabled = true;
+                    document.getElementById("wronganswer3").disabled = true;
                 }
 
-                document.getelem
+                document.getElementById("correctanswer").style.backgroundColor = "#98FB98";
+                document.getElementById("wronganswer1").style.backgroundColor = "#FFA07A";
+                document.getElementById("wronganswer2").style.backgroundColor = "#FFA07A";
+                document.getElementById("wronganswer3").style.backgroundColor = "#FFA07A";
 
                 $.post("/tehtavat/answers",
                 {
@@ -128,11 +110,6 @@
 
             })
         })
-        
-
-        
-
-
     </script>
 
 </body>

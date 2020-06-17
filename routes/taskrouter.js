@@ -21,12 +21,11 @@ router.get("/", async (req, res) =>
 
     const allTasks = await Task.find({});
     var rnd = Math.floor(Math.random() * allTasks.length);
-    let choiceOrderArr = RandomizeChoices(allTasks[0])
 
     res.render("taskview/index.ejs", 
     {
         loggedin: loggedin,
-        Task: allTasks[0],
+        Task: allTasks[rnd],
         rnd: rnd
     });
 })
@@ -93,16 +92,5 @@ router.post("/luo", async (req, res) =>
         res.redirect("/");
     }
 })
-
-function RandomizeChoices(RndTask)
-{
-    let arr = [RndTask.correctAnswer, RndTask.wrongAnswer1, RndTask.wrongAnswer2, RndTask.wrongAnswer3]
-    for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
-}
-
 
 module.exports = router;
