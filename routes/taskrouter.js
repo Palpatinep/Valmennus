@@ -8,6 +8,11 @@ router.use(bodyParser.urlencoded({ limit: "10mb", extended: false }));
 
 router.get("/", async (req, res) =>
 {
+    res.redirect("/tehtavat/kaikki");
+})
+
+router.get("/kaikki", async (req, res) => 
+{
     let loggedin = false;
 
     if (req.isAuthenticated())
@@ -26,6 +31,102 @@ router.get("/", async (req, res) =>
     {
         loggedin: loggedin,
         Task: allTasks[rnd],
+        rnd: rnd
+    });
+})
+
+router.get("/valioliiga", async (req, res) =>
+{
+    let loggedin = false;
+
+    if (req.isAuthenticated())
+    {
+        loggedin = true;
+    }
+    else
+    {
+        loggedin = false;
+    }
+
+    const valioliigaTasks = await Task.find({category: "Valioliiga"});
+    var rnd = Math.floor(Math.random() * valioliigaTasks.length);
+
+    res.render("taskview/index.ejs", 
+    {
+        loggedin: loggedin,
+        Task: valioliigaTasks[rnd],
+        rnd: rnd
+    });
+})
+
+router.get("/laliga", async (req, res) =>
+{
+    let loggedin = false;
+
+    if (req.isAuthenticated())
+    {
+        loggedin = true;
+    }
+    else
+    {
+        loggedin = false;
+    }
+
+    const laligaTasks = await Task.find({category: "La Liga"});
+    var rnd = Math.floor(Math.random() * laligaTasks.length);
+
+    res.render("taskview/index.ejs", 
+    {
+        loggedin: loggedin,
+        Task: laligaTasks[rnd],
+        rnd: rnd
+    });
+})
+
+router.get("/bundesliga", async (req, res) =>
+{
+    let loggedin = false;
+
+    if (req.isAuthenticated())
+    {
+        loggedin = true;
+    }
+    else
+    {
+        loggedin = false;
+    }
+
+    const bundesligaTasks = await Task.find({category: "Bundesliga"});
+    var rnd = Math.floor(Math.random() * bundesligaTasks.length);
+
+    res.render("taskview/index.ejs", 
+    {
+        loggedin: loggedin,
+        Task: bundesligaTasks[rnd],
+        rnd: rnd
+    });
+})
+
+router.get("/seriea", async (req, res) =>
+{
+    let loggedin = false;
+
+    if (req.isAuthenticated())
+    {
+        loggedin = true;
+    }
+    else
+    {
+        loggedin = false;
+    }
+
+    const serieaTasks = await Task.find({category: "Serie A"});
+    var rnd = Math.floor(Math.random() * serieaTasks.length);
+
+    res.render("taskview/index.ejs", 
+    {
+        loggedin: loggedin,
+        Task: serieaTasks[rnd],
         rnd: rnd
     });
 })

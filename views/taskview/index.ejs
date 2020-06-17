@@ -7,18 +7,30 @@
     <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <title>Document</title>
 </head>
-<body >
-    
-    <p>Tehtävät</p>
-
+<body>
+    <br>
+    <div>
+        <label>Kategoriat: </label>
+        <form action="/tehtavat/kaikki">
+            <button type="submit">Kaikki kategoriat</button>
+        </form>
+        <form action="/tehtavat/valioliiga">
+            <button type="submit">Valioliiga</button>
+        </form>
+        <form action="/tehtavat/laliga">
+            <button type="submit">La Liga</button>
+        </form>
+        <form action="/tehtavat/bundesliga">
+            <button type="submit">Bundesliga</button>
+        </form>
+        <form action="/tehtavat/seriea">
+            <button type="submit">Serie A</button>
+        </form>
+    </div>
 
     <h2 id="answerresult"></h2>
 
-
-    
-
     <br>
-
 
     <form action="/tehtavat" >
         <input style="visibility: hidden" value="<%= Task.id %>" type="text" name="questionid"></input>
@@ -39,7 +51,7 @@
 
     <br>
     <br>
-    <a href="/tehtavat">Seuraava tehtävä</a>
+    <button onclick="window.location.reload();">Seuraava tehtävä</button>
     <br>
     <br>
     <br>
