@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 const router = express.Router();
 const Task = require("../models/TaskModel");
+const bodyParser = require('body-parser');
+
+router.use(bodyParser.urlencoded({ limit: "10mb", extended: false }));
 
 router.get("/", async (req, res) =>
 {
@@ -18,26 +21,19 @@ router.get("/", async (req, res) =>
 
     const allTasks = await Task.find({});
     var rnd = Math.floor(Math.random() * allTasks.length);
+    let choiceOrderArr = RandomizeChoices(allTasks[0])
 
     res.render("taskview/index.ejs", 
     {
         loggedin: loggedin,
-        allTasks: allTasks,
+        Task: allTasks[0],
         rnd: rnd
     });
 })
 
 router.post("/", async (req, res) =>
 {
-    
-    console.log(req.body.questionid)
-
     const correctquestion = await Task.find({_id: req.body.questionid});
-
-    console.log(correctquestion);
-
-    console.log(req.body.questionchoice);
-    console.log(correctquestion[0].correctAnswer);
 
     if(correctquestion[0].correctAnswer == req.body.questionchoice)
     {
@@ -47,12 +43,13 @@ router.post("/", async (req, res) =>
     {
         console.log("Wrong Answer")
     }
-
-    res.redirect("/tehtavat");
-
-
-
 })
+
+router.post('/answers', async (req, res) =>
+{
+    console.log(req.body.answer);
+    console.log('req received');
+ });
 
 
 router.get("/luo", async (req, res) =>
@@ -96,5 +93,16 @@ router.post("/luo", async (req, res) =>
         res.redirect("/");
     }
 })
+
+function RandomizeChoices(RndTask)
+{
+    let arr = [RndTask.correctAnswer, RndTask.wrongAnswer1, RndTask.wrongAnswer2, RndTask.wrongAnswer3]
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
 
 module.exports = router;

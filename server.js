@@ -11,6 +11,7 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const flash = require('express-flash');
 const session = require('express-session');
+const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 
 mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true});
@@ -38,6 +39,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(methodOverride('_method'))
 
+app.use(bodyParser.urlencoded({ limit: "10mb", extended: false }));
 app.use(expresslayouts);
 app.use(express.urlencoded({extended: false}));
 app.use(express.static("public"));
