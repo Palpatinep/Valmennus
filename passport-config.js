@@ -24,6 +24,7 @@ module.exports = function(passport)
               if(err) throw err;
               if(isMatch)
               {
+                console.log("AAAAAAAAAA" + user.id)
                 return done(null, user);
               }
               else
@@ -39,6 +40,7 @@ module.exports = function(passport)
 
 passport.serializeUser(function(user, done)
 {
+  console.log("BBBBBBBBBBBB" + user.id)
   done(null, user.id);
 })
 

@@ -28,6 +28,8 @@ const taskrouter = require("./routes/taskrouter.js");
 const register = require("./routes/registerrouter.js");
 const registerrouter = register.router;
 const loginrouter = require("./routes/loginrouter.js");
+const profilerouter = require("./routes/profilerouter.js");
+const leaderboardrouter = require("./routes/leaderboardrouter.js");
 
 app.use(flash())
 app.use(session({
@@ -47,6 +49,7 @@ app.use("/", indexrouter);
 app.use("/tehtavat", taskrouter);
 app.use("/login", loginrouter);
 app.use("/register", registerrouter);
-
+app.use("/profiili", profilerouter);
+app.use("/tulostaulu", leaderboardrouter)
 
 app.listen(process.env.PORT || 3000);

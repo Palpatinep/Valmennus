@@ -32,8 +32,8 @@
 
     <br>
 
-    <form action="/tehtavat" >
-        <input style="visibility: hidden" value="<%= Task.id %>" type="text" name="questionid"></input>
+    <form action="/tehtavat/kaikki" method="POST">
+        <input style="visibility: hidden" id="questionidlabel" value="<%= Task.id %>" type="text" name="questionidlabel"></input>
         <br>
         <label> Kategoria: <%= Task.category %>  </label>
         <br>
@@ -42,14 +42,15 @@
         <br>
         <br>
         <div id="shuffle">
-            <button class="answerbutton" id="correctanswer" name="questionchoice" value="<%=Task.correctAnswer%>"><%=Task.correctAnswer%></button>
-            <button class="answerbutton" id="wronganswer1" name="questionchoice" value="<%=Task.wrongAnswer1%>"><%=Task.wrongAnswer1%></button>
-            <button class="answerbutton" id="wronganswer2" name="questionchoice" value="<%=Task.wrongAnswer2%>"><%=Task.wrongAnswer2%></button>
-            <button class="answerbutton" id="wronganswer3" name="questionchoice" value="<%=Task.wrongAnswer3%>"><%=Task.wrongAnswer3%></button>
+            <button type="submit" class="answerbutton" id="correctanswer" name="questionchoice" value="<%=Task.correctAnswer%>"><%=Task.correctAnswer%></button>
+            <button type="submit" class="answerbutton" id="wronganswer1" name="questionchoice" value="<%=Task.wrongAnswer1%>"><%=Task.wrongAnswer1%></button>
+            <button type="submit" class="answerbutton" id="wronganswer2" name="questionchoice" value="<%=Task.wrongAnswer2%>"><%=Task.wrongAnswer2%></button>
+            <button type="submit" class="answerbutton" id="wronganswer3" name="questionchoice" value="<%=Task.wrongAnswer3%>"><%=Task.wrongAnswer3%></button>
         </div>
     </form>
 
     <br>
+    <div id="descriptiondiv" style="visibility: hidden" ><%=Task.description%></div>
     <br>
     <button onclick="window.location.reload();">Seuraava tehtävä</button>
     <br>
@@ -107,6 +108,7 @@
                     document.getElementById("wronganswer3").disabled = true;
                 }
 
+                document.getElementById("descriptiondiv").style.visibility = "visible";
                 document.getElementById("correctanswer").style.backgroundColor = "#98FB98";
                 document.getElementById("wronganswer1").style.backgroundColor = "#FFA07A";
                 document.getElementById("wronganswer2").style.backgroundColor = "#FFA07A";
@@ -115,6 +117,7 @@
                 $.post("/tehtavat/answers",
                 {
                     answer: this.innerHTML,
+                    questionid: document.getElementById("questionidlabel").value
                 },
                 function(data, status){
                     alert("Data: " + data + "\nStatus: " + status);

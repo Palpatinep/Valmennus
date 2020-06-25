@@ -13,12 +13,14 @@
     <div>
         <a href="/">Etusivu</a>
         <a href="/tehtavat">Tehtävät</a>
+        <a href="/tulostaulu">Tulostaulu</a>
         <% if (locals.loggedin != true) { %>
         <a href="/login">Kirjaudu</a>
         <a href="/register">Rekisteröidy</a>
         <label>EI KIRJAUTUNUT</label>
         <% } else { %>
         <label>KIRJAUTUNUT</label>
+        <a href="/profiili">Profiili</a>
         <form action="/logout?_method=DELETE" method="POST">
             <button type="submit">Log Out</button>
           </form>

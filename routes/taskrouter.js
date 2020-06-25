@@ -3,6 +3,8 @@ const app = express();
 const router = express.Router();
 const Task = require("../models/TaskModel");
 const bodyParser = require('body-parser');
+const UserModel = require("../models/UserModel");
+const AnswerModel = require("../models/AnswerModel");
 
 router.use(bodyParser.urlencoded({ limit: "10mb", extended: false }));
 
@@ -131,24 +133,50 @@ router.get("/seriea", async (req, res) =>
     });
 })
 
-router.post("/", async (req, res) =>
+router.post("/kaikki", async (req, res) =>
 {
-    const correctquestion = await Task.find({_id: req.body.questionid});
+    console.log("YYYYYYYYYYYYYYYYYY")
+    // const correctquestion = await Task.find({_id: req.body.questionidlabel});
 
-    if(correctquestion[0].correctAnswer == req.body.questionchoice)
-    {
-        console.log("Correct Answer")
-    }
-    else
-    {
-        console.log("Wrong Answer")
-    }
+    // if(correctquestion[0].correctAnswer == req.body.questionchoice)
+    // {
+    //     console.log("Correct Answer")
+    // }
+    // else
+    // {
+    //     console.log("Wrong Answer")
+    // }
 })
 
 router.post('/answers', async (req, res) =>
 {
-    console.log(req.body.answer);
-    console.log('req received');
+    const correctquestion = await Task.find({_id: req.body.questionid});
+
+    if(correctquestion[0].correctAnswer == req.body.answer)
+    {
+        console.log("Correct Answer")
+        
+        const newAnswer = new AnswerModel({
+            questionid: req.body.questionid,
+            userid: req.user.id,
+            result: "Correct",
+            date: new Date().toString()
+        });
+        await newAnswer.save();
+    }
+    else
+    {
+        console.log("Wrong Answer")
+
+        const newAnswer = new AnswerModel({
+            questionid: req.body.questionid,
+            userid: req.user.id,
+            questionCategory: correctquestion.category,
+            result: "Wrong",
+            date: new Date().toString()
+        });
+        await newAnswer.save();
+    }
  });
 
 
