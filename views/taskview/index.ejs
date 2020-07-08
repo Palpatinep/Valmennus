@@ -32,6 +32,7 @@
 
     <br>
 
+    <% if (Task != undefined) { %>
     <form action="/tehtavat/kaikki" method="POST">
         <input style="visibility: hidden" id="questionidlabel" value="<%= Task.id %>" type="text" name="questionidlabel"></input>
         <br>
@@ -48,10 +49,14 @@
             <button type="submit" class="answerbutton" id="wronganswer3" name="questionchoice" value="<%=Task.wrongAnswer3%>"><%=Task.wrongAnswer3%></button>
         </div>
     </form>
-
+    
     <br>
     <div id="descriptiondiv" style="visibility: hidden" ><%=Task.description%></div>
     <br>
+
+    <% } else { %>
+        <div>TEHTÄVÄT LOPPU</div>
+       <% } %>
     <button onclick="window.location.reload();">Seuraava tehtävä</button>
     <br>
     <br>

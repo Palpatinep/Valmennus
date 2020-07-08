@@ -12,6 +12,10 @@ const AnswerSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    username:{
+        type: String,
+        required: false
+    },
     questionCategory:{
         type: String,
         required: false

@@ -2,9 +2,21 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose")
 const AnswerModel = require("../models/AnswerModel");
+const UserModel = require("../models/UserModel");
 
 router.get("/", async (req, res) =>
 {
+    let loggedin = false;
+
+    if (req.isAuthenticated())
+    {
+        loggedin = true;
+    }
+    else
+    {
+        loggedin = false;
+    }
+
     const answers = await AnswerModel.find({result: "Correct"});
 
     console.log(answers);
@@ -12,9 +24,11 @@ router.get("/", async (req, res) =>
 
     var rez = {};
     answers.forEach(function(item){
-    rez[item.userid] ? rez[item.userid]++ :  rez[item.userid] = 1;
+    rez[item.username] ? rez[item.username]++ :  rez[item.username] = 1;
     });
+    console.log("BBBBBBBBBBBBBBBB")
     console.log(rez);
+
 
 
     // Object.keys(rez).forEach(function(key,index) {
@@ -31,7 +45,8 @@ router.get("/", async (req, res) =>
     res.render("leaderboardview/index.ejs",
     {
         answers: answers,
-        rez: rez
+        rez: rez,
+        loggedin: loggedin
     });
 })
 

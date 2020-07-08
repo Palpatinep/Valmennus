@@ -5,6 +5,7 @@ const Task = require("../models/TaskModel");
 const bodyParser = require('body-parser');
 const UserModel = require("../models/UserModel");
 const AnswerModel = require("../models/AnswerModel");
+const TaskModel = require("../models/TaskModel");
 
 router.use(bodyParser.urlencoded({ limit: "10mb", extended: false }));
 
@@ -26,15 +27,65 @@ router.get("/kaikki", async (req, res) =>
         loggedin = false;
     }
 
-    const allTasks = await Task.find({});
-    var rnd = Math.floor(Math.random() * allTasks.length);
 
-    res.render("taskview/index.ejs", 
+    if (req.isAuthenticated())
     {
-        loggedin: loggedin,
-        Task: allTasks[rnd],
-        rnd: rnd
-    });
+        const NotAvailableTasks = await AnswerModel.find({userid: req.user.id, result: "Correct"})
+        const NotAvailableTasksArray = [];
+        console.log(NotAvailableTasks);
+        NotAvailableTasks.forEach(element =>
+        {
+            console.log("A")
+            console.log(element.questionid)
+            NotAvailableTasksArray.push(element.questionid)
+        })
+
+        console.log("All")
+        var allTasks = await Task.find({});
+        var AllTasksArray = [];
+        console.log(allTasks);
+        allTasks.forEach(element =>
+        {
+            console.log("B")
+            console.log(element._id)
+            AllTasksArray.push(element._id);
+        })
+        console.log("ABC")
+        console.log(NotAvailableTasksArray)
+        console.log(AllTasksArray)
+
+        NotAvailableTasksArray.forEach(element =>
+        {
+            AllTasksArray = AllTasksArray.filter(task => task._id != element)
+        })
+
+        console.log(AllTasksArray)
+
+        const TaskFind = await TaskModel.find({_id: AllTasksArray});
+        console.log(TaskFind)
+
+        var rnd = Math.floor(Math.random() * TaskFind.length);
+
+        console.log("ASDASD" + TaskFind[rnd])
+        res.render("taskview/index.ejs", 
+        {
+            loggedin: loggedin,
+            Task: TaskFind[rnd],
+            rnd: rnd
+        });
+    }
+    else
+    {
+        const allTasks = await Task.find({});
+        var rnd = Math.floor(Math.random() * allTasks.length);
+    
+        res.render("taskview/index.ejs", 
+        {
+            loggedin: loggedin,
+            Task: allTasks[rnd],
+            rnd: rnd
+        });
+    }
 })
 
 router.get("/valioliiga", async (req, res) =>
@@ -151,6 +202,10 @@ router.post("/kaikki", async (req, res) =>
 router.post('/answers', async (req, res) =>
 {
     const correctquestion = await Task.find({_id: req.body.questionid});
+    const correctuser = await UserModel.find({_id: req.user.id});
+    const username = correctuser[0].name;
+    console.log("AAAAAAAAAAAAAA");
+    console.log(username)
 
     if(correctquestion[0].correctAnswer == req.body.answer)
     {
@@ -159,10 +214,12 @@ router.post('/answers', async (req, res) =>
         const newAnswer = new AnswerModel({
             questionid: req.body.questionid,
             userid: req.user.id,
+            username: username,
             result: "Correct",
             date: new Date().toString()
         });
         await newAnswer.save();
+        console.log(newAnswer)
     }
     else
     {
@@ -221,5 +278,59 @@ router.post("/luo", async (req, res) =>
         res.redirect("/");
     }
 })
+
+// async function SearchQuestions(callback, availableTasks)
+// {
+//     var availableTasks3 = ["asd", "qwe", "wer"];
+
+//     console.log("BEFORE")
+//     console.log(availableTasks3)
+
+//     availableTasks.forEach(async function (doc1) {
+//         // var doc2 = await TaskModel.findOne({_id: doc1.questionid});
+
+//         // await TaskModel.find({_id: doc1.questionid}).stream()
+//         // .on("data", function(doc)
+//         // {
+//         //     console.log("A")
+//         //     console.log(doc)
+//         //     availableTasks3.push(doc)
+//         // })
+//         // .on("error", function(err)
+//         // {
+//         //     console.log("ERROR")
+//         //     console.log(err)
+//         //     console.log("ERROR")
+//         // })
+//         // .on("end", function()
+//         // {
+//         //     console.log("DONEDONE")
+//         // })
+
+//         console.log("OOOOOOOOOOOOOOOOOOO")
+//         console.log(doc1)
+//         console.log("PPPPPPPPPPPPPPPPPP")
+//         console.log(doc1.questionid)
+//         console.log("ÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅ")
+        
+//         availableTasks3.push(await TaskModel.find({_id: "5ef27d9a302f4649985c28f6"}));
+//         console.log("OOOOOOOOOOOOOOOOOOO")
+
+
+
+//         // if (doc2 != null) {
+//         //     doc1 = doc2;
+//         //     console.log("A")
+//         //     console.log(doc2)
+//         //     availableTasks3.push(doc2);
+//         // }
+//     });
+
+//     console.log("AFTER")
+//     console.log(availableTasks3)
+//     callback();
+//     return availableTasks3;
+// }
+
 
 module.exports = router;
