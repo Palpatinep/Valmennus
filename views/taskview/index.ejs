@@ -6,58 +6,46 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"" ></script>
     <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <br>
-    <div>
-        <label>Kategoriat: </label>
-        <form action="/tehtavat/kaikki">
-            <button type="submit">Kaikki kategoriat</button>
-        </form>
-        <form action="/tehtavat/valioliiga">
-            <button type="submit">Valioliiga</button>
-        </form>
-        <form action="/tehtavat/laliga">
-            <button type="submit">La Liga</button>
-        </form>
-        <form action="/tehtavat/bundesliga">
-            <button type="submit">Bundesliga</button>
-        </form>
-        <form action="/tehtavat/seriea">
-            <button type="submit">Serie A</button>
-        </form>
-    </div>
-
-    <h2 id="answerresult"></h2>
-
-    <br>
-
-    <% if (Task != undefined) { %>
-    <form action="/tehtavat/kaikki" method="POST">
-        <input style="visibility: hidden" id="questionidlabel" value="<%= Task.id %>" type="text" name="questionidlabel"></input>
-        <br>
-        <label> Kategoria: <%= Task.category %>  </label>
-        <br>
-        <label> Kysymys: <%= Task.question %> </label>
-        <br>
-        <br>
-        <br>
-        <div id="shuffle">
-            <button type="submit" class="answerbutton" id="correctanswer" name="questionchoice" value="<%=Task.correctAnswer%>"><%=Task.correctAnswer%></button>
-            <button type="submit" class="answerbutton" id="wronganswer1" name="questionchoice" value="<%=Task.wrongAnswer1%>"><%=Task.wrongAnswer1%></button>
-            <button type="submit" class="answerbutton" id="wronganswer2" name="questionchoice" value="<%=Task.wrongAnswer2%>"><%=Task.wrongAnswer2%></button>
-            <button type="submit" class="answerbutton" id="wronganswer3" name="questionchoice" value="<%=Task.wrongAnswer3%>"><%=Task.wrongAnswer3%></button>
-        </div>
-    </form>
     
-    <br>
-    <div id="descriptiondiv" style="visibility: hidden" ><%=Task.description%></div>
-    <br>
 
-    <% } else { %>
-        <div>TEHTÄVÄT LOPPU</div>
-       <% } %>
-    <button onclick="window.location.reload();">Seuraava tehtävä</button>
+    <br>
+    <div class="taskwrapper">
+        <% if (Task != undefined) { %>
+            <form action="/tehtavat/kaikki" method="POST">
+                <input style="visibility: hidden" id="questionidlabel" value="<%= Task.id %>" type="text" name="questionidlabel"></input>
+                <br>
+                <p style="font-size: 20px;" > Kategoria: <%= Task.category %>  </p>
+                <br>
+                <p><%= Task.question %> </p>
+                <br>
+                <br>
+                <br>
+                <div class="choicebuttonwrapper" id="shuffle">
+                    <button type="submit" class="answerbutton" id="correctanswer" name="questionchoice" value="<%=Task.correctAnswer%>"><%=Task.correctAnswer%></button>
+                    <button type="submit" class="answerbutton" id="wronganswer1" name="questionchoice" value="<%=Task.wrongAnswer1%>"><%=Task.wrongAnswer1%></button>
+                    <button type="submit" class="answerbutton" id="wronganswer2" name="questionchoice" value="<%=Task.wrongAnswer2%>"><%=Task.wrongAnswer2%></button>
+                    <button type="submit" class="answerbutton" id="wronganswer3" name="questionchoice" value="<%=Task.wrongAnswer3%>"><%=Task.wrongAnswer3%></button>
+                </div>
+            </form>
+            
+            <br>
+            <h2 id="answerresult"></h2>
+            <br>
+            <div class="taskdescription" id="descriptiondiv" style="visibility: hidden"><%=Task.description%></div>
+            <br>
+        
+            <% } else { %>
+                <div>TEHTÄVÄT LOPPU</div>
+               <% } %>
+
+        <button class="taskoptionbutton" onclick="window.location.reload();">Seuraava tehtävä</button>
+        <button class="taskoptionbutton" style="float: right;" onclick="window.location='/tehtavat'" >Takaisin tehtävävalikkoon</button>
+    </div>
+    
+    
     <br>
     <br>
     <br>
@@ -99,6 +87,7 @@
                 if (this.innerHTML == obj.correctAnswer)
                 {
                     document.getElementById("answerresult").innerHTML = "Oikea vastaus"
+                    document.getElementById("answerresult").style.color = "#03BD00";
                     document.getElementById("correctanswer").disabled = true;
                     document.getElementById("wronganswer1").disabled = true;
                     document.getElementById("wronganswer2").disabled = true;
@@ -107,6 +96,7 @@
                 else
                 {
                     document.getElementById("answerresult").innerHTML = "Väärä vastaus"
+                    document.getElementById("answerresult").style.color = "#FFA07A";
                     document.getElementById("correctanswer").disabled = true;
                     document.getElementById("wronganswer1").disabled = true;
                     document.getElementById("wronganswer2").disabled = true;

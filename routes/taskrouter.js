@@ -11,7 +11,22 @@ router.use(bodyParser.urlencoded({ limit: "10mb", extended: false }));
 
 router.get("/", async (req, res) =>
 {
-    res.redirect("/tehtavat/kaikki");
+    let loggedin = false;
+
+    if (req.isAuthenticated())
+    {
+        loggedin = true;
+    }
+    else
+    {
+        loggedin = false;
+    }
+
+    res.render("taskview/menu.ejs",
+    {
+        loggedin: loggedin
+    })
+
 })
 
 router.get("/kaikki", async (req, res) => 

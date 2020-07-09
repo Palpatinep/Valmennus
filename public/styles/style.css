@@ -1,9 +1,106 @@
 h1{
     color: blue;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 40px;
+}
+h5{
+    font-family: 'Quicksand', sans-serif;
+    font-size: 30px;
+    margin: 25px 0px;
+    padding: 0;
 }
 .wrapper{
     width: 50%;
     height: 700px;
     margin: 0 auto;
+    margin-top: 150px;
     background-color: aliceblue;
+    padding-left: 40px;
+    padding-top: 20px;
+    padding-right: 40px;
+    padding-bottom: 20px;
+}
+p{
+    font-family: 'Quicksand', sans-serif;
+}
+.taskmenu{
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px;
+}
+.taskmenu form{
+    vertical-align: top;
+    display: inline-flex;
+    /* border-color: black;
+    border-width: 2px;
+    border-style: solid; */
+}
+.taskmenu button{
+    width: 150px;
+    height: 80px;
+    font-size: 20px;
+    font-family: 'Quicksand', sans-serif;
+}
+.taskwrapper{
+    padding: 20px 20px;
+    font-family: 'Quicksand', sans-serif;
+}
+.taskwrapper p{
+    font-size: 30px;
+}
+.taskwrapper .choicebuttonwrapper{
+    width: 80%;
+    margin: auto;
+}
+.taskwrapper button{
+    vertical-align: top;
+    width: 150px;
+    height: 80px;
+    font-size: 20px;
+    font-family: 'Quicksand', sans-serif;
+    margin: 0 10px;
+}
+.taskwrapper .taskoptionbutton{
+    vertical-align: top;
+    width: 150px;
+    height: 50px;
+    font-size: 15px;
+    font-family: 'Quicksand', sans-serif;
+    margin-right: 20px;
+}
+.taskwrapper .taskdescription{
+    background-color: rgba(255, 255, 204, 0.938);
+    min-height: 80px;
+    padding: 10px;
+    font-size: 20px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.sidenav{
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 160px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #111; /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+}
+
+.sidenav a{
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+}
+
+.sidenav a:hover{
+    color: #f1f1f1;
+}
+
+.sidenav h3{
+    color: blue;
+    font-size: 20px;
+    padding-left: 15px;
 }
