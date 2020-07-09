@@ -32,41 +32,27 @@ router.get("/kaikki", async (req, res) =>
     {
         const NotAvailableTasks = await AnswerModel.find({userid: req.user.id, result: "Correct"})
         const NotAvailableTasksArray = [];
-        console.log(NotAvailableTasks);
         NotAvailableTasks.forEach(element =>
         {
-            console.log("A")
-            console.log(element.questionid)
             NotAvailableTasksArray.push(element.questionid)
         })
 
-        console.log("All")
-        var allTasks = await Task.find({});
+        const allTasks = await Task.find({});
         var AllTasksArray = [];
-        console.log(allTasks);
         allTasks.forEach(element =>
         {
-            console.log("B")
-            console.log(element._id)
             AllTasksArray.push(element._id);
         })
-        console.log("ABC")
-        console.log(NotAvailableTasksArray)
-        console.log(AllTasksArray)
 
         NotAvailableTasksArray.forEach(element =>
         {
             AllTasksArray = AllTasksArray.filter(task => task._id != element)
         })
 
-        console.log(AllTasksArray)
-
         const TaskFind = await TaskModel.find({_id: AllTasksArray});
-        console.log(TaskFind)
 
         var rnd = Math.floor(Math.random() * TaskFind.length);
 
-        console.log("ASDASD" + TaskFind[rnd])
         res.render("taskview/index.ejs", 
         {
             loggedin: loggedin,
@@ -101,15 +87,52 @@ router.get("/valioliiga", async (req, res) =>
         loggedin = false;
     }
 
-    const valioliigaTasks = await Task.find({category: "Valioliiga"});
-    var rnd = Math.floor(Math.random() * valioliigaTasks.length);
-
-    res.render("taskview/index.ejs", 
+    if (req.isAuthenticated())
     {
-        loggedin: loggedin,
-        Task: valioliigaTasks[rnd],
-        rnd: rnd
-    });
+        const NotAvailableTasks = await AnswerModel.find({userid: req.user.id, result: "Correct"})
+        const NotAvailableTasksArray = [];
+
+        NotAvailableTasks.forEach(element =>
+        {
+            NotAvailableTasksArray.push(element.questionid)
+        })  
+        
+        const valioliigaTasks = await Task.find({category: "Valioliiga"});
+        var valioliigaTasksArray = [];
+
+        valioliigaTasks.forEach(element =>
+        {
+            valioliigaTasksArray.push(element._id);
+        })
+
+        NotAvailableTasksArray.forEach(element =>
+        {
+            valioliigaTasksArray = valioliigaTasksArray.filter(task => task._id != element)
+        })
+
+        const TaskFind = await TaskModel.find({_id: valioliigaTasksArray});
+
+        var rnd = Math.floor(Math.random() * TaskFind.length);
+
+        res.render("taskview/index.ejs", 
+        {
+            loggedin: loggedin,
+            Task: TaskFind[rnd],
+            rnd: rnd
+        });
+    }
+    else
+    {
+        const valioliigaTasks = await Task.find({category: "Valioliiga"});
+        var rnd = Math.floor(Math.random() * valioliigaTasks.length);
+
+        res.render("taskview/index.ejs", 
+        {
+            loggedin: loggedin,
+            Task: valioliigaTasks[rnd],
+            rnd: rnd
+        });
+    }
 })
 
 router.get("/laliga", async (req, res) =>
@@ -125,15 +148,52 @@ router.get("/laliga", async (req, res) =>
         loggedin = false;
     }
 
-    const laligaTasks = await Task.find({category: "La Liga"});
-    var rnd = Math.floor(Math.random() * laligaTasks.length);
-
-    res.render("taskview/index.ejs", 
+    if (req.isAuthenticated())
     {
-        loggedin: loggedin,
-        Task: laligaTasks[rnd],
-        rnd: rnd
-    });
+        const NotAvailableTasks = await AnswerModel.find({userid: req.user.id, result: "Correct"})
+        const NotAvailableTasksArray = [];
+
+        NotAvailableTasks.forEach(element =>
+        {
+            NotAvailableTasksArray.push(element.questionid)
+        })  
+        
+        const laligaTasks = await Task.find({category: "La Liga"});
+        var laligaTasksArray = [];
+
+        laligaTasks.forEach(element =>
+        {
+            laligaTasksArray.push(element._id);
+        })
+
+        NotAvailableTasksArray.forEach(element =>
+        {
+            laligaTasksArray = laligaTasksArray.filter(task => task._id != element)
+        })
+
+        const TaskFind = await TaskModel.find({_id: laligaTasksArray});
+
+        var rnd = Math.floor(Math.random() * TaskFind.length);
+
+        res.render("taskview/index.ejs", 
+        {
+            loggedin: loggedin,
+            Task: TaskFind[rnd],
+            rnd: rnd
+        });
+    }
+    else
+    {
+        const laligaTasks = await Task.find({category: "La Liga"});
+        var rnd = Math.floor(Math.random() * laligaTasks.length);
+
+        res.render("taskview/index.ejs", 
+        {
+            loggedin: loggedin,
+            Task: laligaTasks[rnd],
+            rnd: rnd
+        });
+    }    
 })
 
 router.get("/bundesliga", async (req, res) =>
@@ -149,15 +209,51 @@ router.get("/bundesliga", async (req, res) =>
         loggedin = false;
     }
 
-    const bundesligaTasks = await Task.find({category: "Bundesliga"});
-    var rnd = Math.floor(Math.random() * bundesligaTasks.length);
-
-    res.render("taskview/index.ejs", 
+    if (req.isAuthenticated())
     {
-        loggedin: loggedin,
-        Task: bundesligaTasks[rnd],
-        rnd: rnd
-    });
+        const NotAvailableTasks = await AnswerModel.find({userid: req.user.id, result: "Correct"})
+        const NotAvailableTasksArray = [];
+
+        NotAvailableTasks.forEach(element =>
+        {
+            NotAvailableTasksArray.push(element.questionid)
+        })
+
+        const bundesligaTasks = await Task.find({category: "Bundesliga"});
+        var bundesligaTasksArray = [];
+
+        bundesligaTasks.forEach(element =>
+        {
+            bundesligaTasksArray.push(element._id);
+        })
+
+        NotAvailableTasksArray.forEach(element =>
+        {
+            bundesligaTasksArray = bundesligaTasksArray.filter(task => task._id != element)
+        })
+
+        const TaskFind = await Task.find({_id: bundesligaTasksArray});
+        var rnd = Math.floor(Math.random() * TaskFind.length);
+
+        res.render("taskview/index.ejs", 
+        {
+            loggedin: loggedin,
+            Task: TaskFind[rnd],
+            rnd: rnd
+        });
+    }
+    else
+    {
+        const bundesligaTasks = await Task.find({category: "Bundesliga"});
+        var rnd = Math.floor(Math.random() * bundesligaTasks.length);
+
+        res.render("taskview/index.ejs", 
+        {
+            loggedin: loggedin,
+            Task: bundesligaTasks[rnd],
+            rnd: rnd
+        });
+    }   
 })
 
 router.get("/seriea", async (req, res) =>
@@ -173,15 +269,51 @@ router.get("/seriea", async (req, res) =>
         loggedin = false;
     }
 
-    const serieaTasks = await Task.find({category: "Serie A"});
-    var rnd = Math.floor(Math.random() * serieaTasks.length);
-
-    res.render("taskview/index.ejs", 
+    if (req.isAuthenticated())
     {
-        loggedin: loggedin,
-        Task: serieaTasks[rnd],
-        rnd: rnd
-    });
+        const NotAvailableTasks = await AnswerModel.find({userid: req.user.id, result: "Correct"})
+        const NotAvailableTasksArray = [];
+
+        NotAvailableTasks.forEach(element =>
+        {
+            NotAvailableTasksArray.push(element.questionid)
+        })  
+        
+        const serieaTasks = await Task.find({category: "Serie A"});
+        var serieaTasksArray = [];
+
+        serieaTasks.forEach(element =>
+        {
+            serieaTasksArray.push(element._id);
+        })
+
+        NotAvailableTasksArray.forEach(element =>
+        {
+            serieaTasksArray = serieaTasksArray.filter(task => task._id != element)
+        })
+
+        const TaskFind = await Task.find({_id: serieaTasksArray});
+        var rnd = Math.floor(Math.random() * TaskFind.length);
+
+        res.render("taskview/index.ejs", 
+        {
+            loggedin: loggedin,
+            Task: TaskFind[rnd],
+            rnd: rnd
+        });
+    }
+    else
+    {
+        const serieaTasks = await Task.find({category: "Serie A"});
+        var rnd = Math.floor(Math.random() * serieaTasks.length);
+
+        res.render("taskview/index.ejs", 
+        {
+            loggedin: loggedin,
+            Task: serieaTasks[rnd],
+            rnd: rnd
+        });
+    }    
 })
 
 router.post("/kaikki", async (req, res) =>
