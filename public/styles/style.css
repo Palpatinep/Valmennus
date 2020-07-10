@@ -75,6 +75,36 @@ p{
     font-family: 'Quicksand', sans-serif;
 }
 
+.login{
+    font-family: 'Quicksand', sans-serif;
+    width: 50%;
+    margin: auto;
+    padding: 40px;
+    background-color: white;
+    text-align: center;
+}
+.loginform{
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px;
+    text-align: left;
+}
+.loginform label{
+    display: inline-block;
+    width: 200px;
+}
+.loginform input{
+    font-size: 20px;
+    height: 30px;
+    margin-bottom: 5px;
+}
+.login button{
+    width: 50%;
+    margin: auto;
+    height: 70px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 30px;
+}
+
 .sidenav{
     height: 100%; /* Full-height: remove this if you want "auto" height */
     width: 160px; /* Set the width of the sidebar */

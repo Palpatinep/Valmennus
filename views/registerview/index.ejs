@@ -1,27 +1,49 @@
-<h1>Rekisteröidy</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekisteröidy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
 
-<% if (locals.errorMessage != null) { %>
-        <div class="errorMessage"><%= errorMessage %></div>    
-<% } %>
+    <div class="login">
+        <h1>Rekisteröidy</h1>
 
-<form action="/register" method="POST">
-    <div>
-        <label for="name" name="name">Nimitunnus</label>
-        <input type="text" id="name" name="name" required>
-    </div>
-    <div>
-        <label for="email" name="email">Sähköposti</label>
-        <input type="email" id="email" name="email" required>
-    </div>
-    <div>
-        <label name="email">Salasana</label>
-        <input type="password" id="password" name="password" required>
-    </div>
-    <div>
-        <label name="email">Salasana uudelleen</label>
-        <input type="password" id="password2" name="password2" required>
+        <% if (locals.errorMessage != null) { %>
+                <div class="errorMessage"><%= errorMessage %></div>    
+        <% } %>
+    
+        <div class="loginform">
+            <form action="/register" method="POST">
+                <div>
+                    <label for="name" name="name">Nimitunnus</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div>
+                    <label for="email" name="email">Sähköposti</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div>
+                    <label name="email">Salasana</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div>
+                    <label name="email">Salasana uudelleen</label>
+                    <input type="password" id="password2" name="password2" required>
+                </div>
+                
+        
+        </div>
+
+        <button type="submit">Rekisteröidy</button>
+            </form>
+        
+        <br>
+        <a href="/login">Kirjaudu</a>
     </div>
     
-    <button type="submit">Rekisteröidy</button>
-</form>
-<a href="/login">Kirjaudu</a>
+</body>
+</html>
+
