@@ -353,6 +353,7 @@ router.post('/answers', async (req, res) =>
     const username = correctuser[0].name;
     console.log("AAAAAAAAAAAAAA");
     console.log(username)
+    console.log(correctquestion[0].category)
 
     if(correctquestion[0].correctAnswer == req.body.answer)
     {
@@ -361,6 +362,7 @@ router.post('/answers', async (req, res) =>
         const newAnswer = new AnswerModel({
             questionid: req.body.questionid,
             userid: req.user.id,
+            questionCategory: correctquestion[0].category,
             username: username,
             result: "Correct",
             date: new Date().toString()
@@ -375,7 +377,8 @@ router.post('/answers', async (req, res) =>
         const newAnswer = new AnswerModel({
             questionid: req.body.questionid,
             userid: req.user.id,
-            questionCategory: correctquestion.category,
+            questionCategory: correctquestion[0].category,
+            username: username,
             result: "Wrong",
             date: new Date().toString()
         });
