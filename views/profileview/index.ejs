@@ -15,33 +15,33 @@
     
         <div class="profilesuccess">
             <div class="profilecategory">
-                <h5 class="profilelist">Kaikki kategoriat (<%= ((correctAnswers / answers.length).toFixed(2) * 100) %> %)</h5>
+                <h5 class="profilelist">Kaikki kategoriat (<%= ((correctAnswers / answers.length).toFixed(2) * 100) || 0%> %)</h5>
                 <p class="profilelist">Vastauksia: <%= answers.length %></p>
                 <p class="profilelist">Oikein: <%= correctAnswers %></p>
                 <p class="profilelist">Väärin: <%= wrongAnswers %></p>
             </div>
             <div class="profilecategory">
-                <h5 class="profilelist">Valioliiga (<%= ((ValioliigacorrectAnswers / ValioliigaAnswers.length).toFixed(2) * 100) %> %)</h5>
+                <h5 class="profilelist">Valioliiga (<%= ((ValioliigacorrectAnswers / ValioliigaAnswers.length).toFixed(2) * 100) || 0 %> %)</h5>
                 <p class="profilelist">Vastauksia: <%= ValioliigaAnswers.length %></p>
                 <p class="profilelist">Oikein: <%= ValioliigacorrectAnswers %></p>
                 <p class="profilelist">Väärin: <%= ValioliigawrongAnswers %></p>
             </div>
             <br>
             <div class="profilecategory">
-                <h5 class="profilelist">La Liga (<%= ((LaLigacorrectAnswers / LaLigaAnswers.length).toFixed(2) * 100) %> %)</h5>
+                <h5 class="profilelist">La Liga (<%= ((LaLigacorrectAnswers / LaLigaAnswers.length).toFixed(2) * 100) || 0 %> %)</h5>
                 <p class="profilelist">Vastauksia: <%= LaLigaAnswers.length %></p>
                 <p class="profilelist">Oikein: <%= LaLigacorrectAnswers %></p>
                 <p class="profilelist">Väärin: <%= LaLigawrongAnswers %></p>
             </div>
             <div class="profilecategory">
-                <h5 class="profilelist">Serie A (<%= ((SerieAcorrectAnswers / SerieAAnswers.length).toFixed(2) * 100) %> %)</h5>
+                <h5 class="profilelist">Serie A (<%= ((SerieAcorrectAnswers / SerieAAnswers.length).toFixed(2) * 100) || 0 %> %)</h5>
                 <p class="profilelist">Vastauksia: <%= SerieAAnswers.length %></p>
                 <p class="profilelist">Oikein: <%= SerieAcorrectAnswers %></p>
                 <p class="profilelist">Väärin: <%= SerieAwrongAnswers %></p>
             </div>
             <br>
             <div class="profilecategory">
-                <h5 class="profilelist">Bundesliga (<%= ((BundesligacorrectAnswers / BundesligaAnswers.length).toFixed(2) * 100) %> %)</h5>
+                <h5 class="profilelist">Bundesliga (<%= ((BundesligacorrectAnswers / BundesligaAnswers.length).toFixed(2) * 100) || 0 %> %)</h5>
                 <p class="profilelist">Vastauksia: <%= BundesligaAnswers.length %></p>
                 <p class="profilelist">Oikein: <%= BundesligacorrectAnswers %></p>
                 <p class="profilelist">Väärin: <%= BundesligawrongAnswers %></p>
