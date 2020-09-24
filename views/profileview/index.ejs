@@ -7,49 +7,49 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Profiili</h1>
+    <div class="wrapper">
+        <h1>Profiili</h1>
 
-    <div class="profileclass">
-        <p>Nimitunnus: <%= LoggedUser.name %></p>
-        <p>Sähköposti: <%= LoggedUser.email %></p>
-    
-        <div class="profilesuccess">
-            <div class="profilecategory">
-                <h5 class="profilelist">Kaikki kategoriat (<%= ((correctAnswers / answers.length).toFixed(2) * 100) || 0%> %)</h5>
-                <p class="profilelist">Vastauksia: <%= answers.length %></p>
-                <p class="profilelist">Oikein: <%= correctAnswers %></p>
-                <p class="profilelist">Väärin: <%= wrongAnswers %></p>
-            </div>
-            <div class="profilecategory">
-                <h5 class="profilelist">Valioliiga (<%= ((ValioliigacorrectAnswers / ValioliigaAnswers.length).toFixed(2) * 100) || 0 %> %)</h5>
-                <p class="profilelist">Vastauksia: <%= ValioliigaAnswers.length %></p>
-                <p class="profilelist">Oikein: <%= ValioliigacorrectAnswers %></p>
-                <p class="profilelist">Väärin: <%= ValioliigawrongAnswers %></p>
-            </div>
-            <br>
-            <div class="profilecategory">
-                <h5 class="profilelist">La Liga (<%= ((LaLigacorrectAnswers / LaLigaAnswers.length).toFixed(2) * 100) || 0 %> %)</h5>
-                <p class="profilelist">Vastauksia: <%= LaLigaAnswers.length %></p>
-                <p class="profilelist">Oikein: <%= LaLigacorrectAnswers %></p>
-                <p class="profilelist">Väärin: <%= LaLigawrongAnswers %></p>
-            </div>
-            <div class="profilecategory">
-                <h5 class="profilelist">Serie A (<%= ((SerieAcorrectAnswers / SerieAAnswers.length).toFixed(2) * 100) || 0 %> %)</h5>
-                <p class="profilelist">Vastauksia: <%= SerieAAnswers.length %></p>
-                <p class="profilelist">Oikein: <%= SerieAcorrectAnswers %></p>
-                <p class="profilelist">Väärin: <%= SerieAwrongAnswers %></p>
-            </div>
-            <br>
-            <div class="profilecategory">
-                <h5 class="profilelist">Bundesliga (<%= ((BundesligacorrectAnswers / BundesligaAnswers.length).toFixed(2) * 100) || 0 %> %)</h5>
-                <p class="profilelist">Vastauksia: <%= BundesligaAnswers.length %></p>
-                <p class="profilelist">Oikein: <%= BundesligacorrectAnswers %></p>
-                <p class="profilelist">Väärin: <%= BundesligawrongAnswers %></p>
+        <div class="profileclass">
+            <p>Nimitunnus: <%= LoggedUser.name %></p>
+            <p>Sähköposti: <%= LoggedUser.email %></p>
+        
+            <div class="profilesuccess">
+                <div class="profilecategory">
+                    <h5 class="profilelist">Kaikki kategoriat (<%= ((correctAnswers / answers.length).toFixed(2) * 100) || 0%> %)</h5>
+                    <p class="profilelist">Vastauksia: <%= answers.length %></p>
+                    <p class="profilelist">Oikein: <%= correctAnswers %></p>
+                    <p class="profilelist">Väärin: <%= wrongAnswers %></p>
+                </div>
+                <div class="profilecategory">
+                    <h5 class="profilelist">Päätöksenteko (<%= ((PaatoscorrectAnswers / PaatosAnswers.length).toFixed(2) * 100) || 0 %> %)</h5>
+                    <p class="profilelist">Vastauksia: <%= PaatosAnswers.length %></p>
+                    <p class="profilelist">Oikein: <%= PaatoscorrectAnswers %></p>
+                    <p class="profilelist">Väärin: <%= PaatoswrongAnswers %></p>
+                </div>
+                <br>
+                <div class="profilecategory">
+                    <h5 class="profilelist">Matematiikka (<%= ((MatematiikkacorrectAnswers / MatematiikkaAnswers.length).toFixed(2) * 100) || 0 %> %)</h5>
+                    <p class="profilelist">Vastauksia: <%= MatematiikkaAnswers.length %></p>
+                    <p class="profilelist">Oikein: <%= MatematiikkacorrectAnswers %></p>
+                    <p class="profilelist">Väärin: <%= MatematiikkawrongAnswers %></p>
+                </div>
+                <div class="profilecategory">
+                    <h5 class="profilelist">Englanti (<%= ((EnglanticorrectAnswers / EnglantiAnswers.length).toFixed(2) * 100) || 0 %> %)</h5>
+                    <p class="profilelist">Vastauksia: <%= EnglantiAnswers.length %></p>
+                    <p class="profilelist">Oikein: <%= EnglanticorrectAnswers %></p>
+                    <p class="profilelist">Väärin: <%= EnglantiwrongAnswers %></p>
+                </div>
+                <br>
+                <div class="profilecategory">
+                    <h5 class="profilelist">Suomi (<%= ((SuomicorrectAnswers / SuomiAnswers.length).toFixed(2) * 100) || 0 %> %)</h5>
+                    <p class="profilelist">Vastauksia: <%= SuomiAnswers.length %></p>
+                    <p class="profilelist">Oikein: <%= SuomicorrectAnswers %></p>
+                    <p class="profilelist">Väärin: <%= SuomiwrongAnswers %></p>
+                </div>
             </div>
         </div>
-    </div>
-
-   
+    </div>   
 </body>
 </html>
 

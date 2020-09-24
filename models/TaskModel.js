@@ -6,30 +6,42 @@ const TaskSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    imageurl:{
+        type: String,
+        required: false
+    },
     description:{
         type: String,
         required: true
+    },
+    descriptionimageurl:{
+        type: String,
+        required: false
     },
     category:{
         type: String,
         required: true
     },
-    correctAnswer:{
+    optionA:{
         type: String,
         required: true
     },
-    wrongAnswer1:{
+    optionB:{
         type: String,
         required: false
     },
-    wrongAnswer2:{
+    optionC:{
         type: String,
         required: false
     },
-    wrongAnswer3:{
+    optionD:{
         type: String,
         required: false
-    }
+    },
+    correctOption:{
+        type: String,
+        required: false
+    },
 })
 
 module.exports = mongoose.model("TaskModel", TaskSchema);

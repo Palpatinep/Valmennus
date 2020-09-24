@@ -25,35 +25,35 @@ router.get("/:id", async (req, res) =>
     const LoggedUser = await UserModel.find({_id: req.params.id})
     const answers = await AnswerModel.find({userid: req.params.id})
 
-    const ValioliigaAnswers = answers.filter(function (el){
-        return el.questionCategory == "Valioliiga"
+    const PaatosAnswers = answers.filter(function (el){
+        return el.questionCategory == "Paatos"
     })
-    const LaLigaAnswers = answers.filter(function (el){
+    const MatematiikkaAnswers = answers.filter(function (el){
         return el.questionCategory == "La Liga"
     })
-    const SerieAAnswers = answers.filter(function (el){
+    const EnglantiAnswers = answers.filter(function (el){
         return el.questionCategory == "Serie A"
     })
-    const BundesligaAnswers = answers.filter(function (el){
-        return el.questionCategory == "Bundesliga"
+    const SuomiAnswers = answers.filter(function (el){
+        return el.questionCategory == "Suomi"
     })
 
-    console.log(ValioliigaAnswers)
-    console.log(LaLigaAnswers)
-    console.log(SerieAAnswers)
-    console.log(BundesligaAnswers)
+    console.log(PaatosAnswers)
+    console.log(MatematiikkaAnswers)
+    console.log(EnglantiAnswers)
+    console.log(SuomiAnswers)
 
     
     var correctAnswers = 0;
     var wrongAnswers = 0;
-    var ValioliigacorrectAnswers = 0;
-    var ValioliigawrongAnswers = 0;
-    var LaLigacorrectAnswers = 0;
-    var LaLigawrongAnswers = 0;
-    var SerieAcorrectAnswers = 0;
-    var SerieAwrongAnswers = 0;
-    var BundesligacorrectAnswers = 0;
-    var BundesligawrongAnswers = 0;
+    var PaatoscorrectAnswers = 0;
+    var PaatoswrongAnswers = 0;
+    var MatematiikkacorrectAnswers = 0;
+    var MatematiikkawrongAnswers = 0;
+    var EnglanticorrectAnswers = 0;
+    var EnglantiwrongAnswers = 0;
+    var SuomicorrectAnswers = 0;
+    var SuomiwrongAnswers = 0;
 
     for (var i=0; i < answers.length; i++) {
         if (answers[i].result === "Correct") {
@@ -64,53 +64,53 @@ router.get("/:id", async (req, res) =>
             wrongAnswers += 1;
         }
     }
-    for (var i=0; i < ValioliigaAnswers.length; i++) {
-        if (ValioliigaAnswers[i].result === "Correct") {
-            ValioliigacorrectAnswers += 1;
+    for (var i=0; i < PaatosAnswers.length; i++) {
+        if (PaatosAnswers[i].result === "Correct") {
+            PaatoscorrectAnswers += 1;
         }
-        else if (ValioliigaAnswers[i].result === "Wrong")
+        else if (PaatosAnswers[i].result === "Wrong")
         {
-            ValioliigawrongAnswers += 1;
+            PaatoswrongAnswers += 1;
         }
     }
-    for (var i=0; i < LaLigaAnswers.length; i++) {
-        if (LaLigaAnswers[i].result === "Correct") {
-            LaLigacorrectAnswers += 1;
+    for (var i=0; i < MatematiikkaAnswers.length; i++) {
+        if (MatematiikkaAnswers[i].result === "Correct") {
+            MatematiikkacorrectAnswers += 1;
         }
-        else if (LaLigaAnswers[i].result === "Wrong")
+        else if (MatematiikkaAnswers[i].result === "Wrong")
         {
-            LaLigawrongAnswers += 1;
+            MatematiikkawrongAnswers += 1;
         }
     }
-    for (var i=0; i < SerieAAnswers.length; i++) {
-        if (SerieAAnswers[i].result === "Correct") {
-            SerieAcorrectAnswers += 1;
+    for (var i=0; i < EnglantiAnswers.length; i++) {
+        if (EnglantiAnswers[i].result === "Correct") {
+            EnglanticorrectAnswers += 1;
         }
-        else if (SerieAAnswers[i].result === "Wrong")
+        else if (EnglantiAnswers[i].result === "Wrong")
         {
-            SerieAwrongAnswers += 1;
+            EnglantiwrongAnswers += 1;
         }
     }
-    for (var i=0; i < BundesligaAnswers.length; i++) {
-        if (BundesligaAnswers[i].result === "Correct") {
-            BundesligacorrectAnswers += 1;
+    for (var i=0; i < SuomiAnswers.length; i++) {
+        if (SuomiAnswers[i].result === "Correct") {
+            SuomicorrectAnswers += 1;
         }
-        else if (BundesligaAnswers[i].result === "Wrong")
+        else if (SuomiAnswers[i].result === "Wrong")
         {
-            BundesligawrongAnswers += 1;
+            SuomiwrongAnswers += 1;
         }
     }
 
     console.log(correctAnswers)
     console.log(wrongAnswers)
-    console.log(ValioliigacorrectAnswers)
-    console.log(ValioliigawrongAnswers)
-    console.log(LaLigacorrectAnswers)
-    console.log(LaLigawrongAnswers)
-    console.log(SerieAcorrectAnswers)
-    console.log(SerieAwrongAnswers)
-    console.log(BundesligacorrectAnswers)
-    console.log(BundesligawrongAnswers)
+    console.log(PaatoscorrectAnswers)
+    console.log(PaatoswrongAnswers)
+    console.log(MatematiikkacorrectAnswers)
+    console.log(MatematiikkawrongAnswers)
+    console.log(EnglanticorrectAnswers)
+    console.log(EnglantiwrongAnswers)
+    console.log(SuomicorrectAnswers)
+    console.log(SuomiwrongAnswers)
 
 
     res.render("profileview/index.ejs",
@@ -120,18 +120,18 @@ router.get("/:id", async (req, res) =>
         answers: answers,
         correctAnswers: correctAnswers,
         wrongAnswers: wrongAnswers,
-        ValioliigaAnswers: ValioliigaAnswers,
-        ValioliigacorrectAnswers: ValioliigacorrectAnswers,
-        ValioliigawrongAnswers: ValioliigawrongAnswers,
-        LaLigaAnswers: LaLigaAnswers,
-        LaLigacorrectAnswers: LaLigacorrectAnswers,
-        LaLigawrongAnswers: LaLigawrongAnswers,
-        SerieAAnswers: SerieAAnswers,
-        SerieAcorrectAnswers, SerieAcorrectAnswers,
-        SerieAwrongAnswers: SerieAwrongAnswers,
-        BundesligaAnswers: BundesligaAnswers,
-        BundesligacorrectAnswers: BundesligacorrectAnswers,
-        BundesligawrongAnswers: BundesligawrongAnswers
+        PaatosAnswers: PaatosAnswers,
+        PaatoscorrectAnswers: PaatoscorrectAnswers,
+        PaatoswrongAnswers: PaatoswrongAnswers,
+        MatematiikkaAnswers: MatematiikkaAnswers,
+        MatematiikkacorrectAnswers: MatematiikkacorrectAnswers,
+        MatematiikkawrongAnswers: MatematiikkawrongAnswers,
+        EnglantiAnswers: EnglantiAnswers,
+        EnglanticorrectAnswers, EnglanticorrectAnswers,
+        EnglantiwrongAnswers: EnglantiwrongAnswers,
+        SuomiAnswers: SuomiAnswers,
+        SuomicorrectAnswers: SuomicorrectAnswers,
+        SuomiwrongAnswers: SuomiwrongAnswers
     });
 })
 

@@ -15,7 +15,7 @@ h5{
     height: 100%;
     margin: 0 auto;
     margin-top: 150px;
-    background-color: aliceblue;
+    background-color: rgb(227, 227, 250);
     padding-left: 40px;
     padding-top: 20px;
     padding-right: 40px;
@@ -32,7 +32,6 @@ p{
 .taskmenu form{
     vertical-align: top;
     display: inline-flex;
-    
 }
 .taskmenu button{
     width: 150px;
@@ -40,9 +39,27 @@ p{
     font-size: 20px;
     font-family: 'Quicksand', sans-serif;
 }
+.taskwindowwrapper{
+    width: 70%;
+    display: flex;
+    margin: 0 auto;
+    margin-top: 100px;
+}
 .taskwrapper{
-    padding: 20px 20px;
+    padding: 20px;
+    width: 75%;
+    background-color: rgb(227, 227, 250);
+    min-height: 700px;
+    height: 100%;
     font-family: 'Quicksand', sans-serif;
+}
+.infodivwrapper{
+    padding: 20px;
+    margin-left: 20px;
+    flex-grow: 1;
+    min-height: 700px;
+    height: 100%;
+    background-color: rgb(227, 227, 250);
 }
 .taskwrapper p{
     font-size: 30px;
@@ -127,6 +144,7 @@ p{
     font-family: 'Quicksand', sans-serif;
     font-size: 30px;
 }
+
 
 .sidenav{
     height: 100%; /* Full-height: remove this if you want "auto" height */

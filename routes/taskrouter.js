@@ -22,11 +22,30 @@ router.get("/", async (req, res) =>
         loggedin = false;
     }
 
-    res.render("taskview/menu.ejs",
+    res.render("taskview/schoolmenu.ejs",
     {
         loggedin: loggedin
     })
 
+})
+
+router.get("/amk", async (req, res) =>
+{
+    let loggedin = false;
+
+    if (req.isAuthenticated())
+    {
+        loggedin = true;
+    }
+    else
+    {
+        loggedin = false;
+    }
+
+    res.render("taskview/amkmenu.ejs",
+    {
+        loggedin: loggedin
+    })
 })
 
 router.get("/kaikki", async (req, res) => 
@@ -68,11 +87,105 @@ router.get("/kaikki", async (req, res) =>
 
         var rnd = Math.floor(Math.random() * TaskFind.length);
 
+        console.log("AAAAAAAAAAAAAA")
+        console.log(TaskFind[rnd].category)
+
+        var CategoryAnswers = [];
+
+        if(TaskFind[rnd].category == "Päätöksentekotaidot")
+        {
+            console.log("AAAAAA Valio")
+            const answers = await AnswerModel.find({userid: req.user.id})
+
+            CategoryAnswers = answers.filter(function (el){
+                return el.questionCategory == "Päätöksentekotaidot"
+            })
+            var correctAnswers = 0;
+            var wrongAnswers = 0;
+
+            for (var i=0; i < CategoryAnswers.length; i++) {
+                if (CategoryAnswers[i].result === "Correct") {
+                    correctAnswers += 1;
+                }
+                else if (CategoryAnswers[i].result === "Wrong")
+                {
+                    wrongAnswers += 1;
+                }
+            }
+        }
+        else if(TaskFind[rnd].category == "Matematiikkas")
+        {
+            console.log("AAAAAA La")
+
+            const answers = await AnswerModel.find({userid: req.user.id})
+
+            CategoryAnswers = answers.filter(function (el){
+                return el.questionCategory == "Matematiikkas"
+            })
+            var correctAnswers = 0;
+            var wrongAnswers = 0;
+
+            for (var i=0; i < CategoryAnswers.length; i++) {
+                if (CategoryAnswers[i].result === "Correct") {
+                    correctAnswers += 1;
+                }
+                else if (CategoryAnswers[i].result === "Wrong")
+                {
+                    wrongAnswers += 1;
+                }
+            }
+        }
+        else if(TaskFind[rnd].category == "Suomi")
+        {
+            console.log("AAAAAA Bundes")
+
+            const answers = await AnswerModel.find({userid: req.user.id})
+
+            CategoryAnswers = answers.filter(function (el){
+                return el.questionCategory == "Suomi"
+            })
+            var correctAnswers = 0;
+            var wrongAnswers = 0;
+
+            for (var i=0; i < CategoryAnswers.length; i++) {
+                if (CategoryAnswers[i].result === "Correct") {
+                    correctAnswers += 1;
+                }
+                else if (CategoryAnswers[i].result === "Wrong")
+                {
+                    wrongAnswers += 1;
+                }
+            }
+        }
+        else if(TaskFind[rnd].category == "Englanti")
+        {
+            const answers = await AnswerModel.find({userid: req.user.id})
+
+            CategoryAnswers = answers.filter(function (el){
+                return el.questionCategory == "Englanti"
+            })
+            var correctAnswers = 0;
+            var wrongAnswers = 0;
+
+            for (var i=0; i < CategoryAnswers.length; i++) {
+                if (CategoryAnswers[i].result === "Correct") {
+                    correctAnswers += 1;
+                }
+                else if (CategoryAnswers[i].result === "Wrong")
+                {
+                    wrongAnswers += 1;
+                }
+            }
+        }
+
         res.render("taskview/index.ejs", 
         {
             loggedin: loggedin,
             Task: TaskFind[rnd],
-            rnd: rnd
+            rnd: rnd,
+            Answers: CategoryAnswers,
+            CorrectAnswers: correctAnswers,
+            WrongAnswers: wrongAnswers,
         });
     }
     else
@@ -80,16 +193,115 @@ router.get("/kaikki", async (req, res) =>
         const allTasks = await Task.find({});
         var rnd = Math.floor(Math.random() * allTasks.length);
     
-        res.render("taskview/index.ejs", 
+        // res.render("taskview/index.ejs", 
+        // {
+        //     loggedin: loggedin,
+        //     Task: allTasks[rnd],
+        //     rnd: rnd
+        // });
+        res.render("loginview/index.ejs", 
         {
-            loggedin: loggedin,
-            Task: allTasks[rnd],
-            rnd: rnd
+    
         });
     }
 })
 
-router.get("/valioliiga", async (req, res) =>
+router.get("/paatoksentekotaidot", async (req, res) =>
+{
+
+    const testi = "asd \n asd"
+    console.log(testi)
+
+    let loggedin = false;
+
+    if (req.isAuthenticated())
+    {
+        loggedin = true;
+    }
+    else
+    {
+        loggedin = false;
+    }
+
+    if (req.isAuthenticated())
+    {
+        const NotAvailableTasks = await AnswerModel.find({userid: req.user.id, result: "Correct"})
+        const NotAvailableTasksArray = [];
+
+        NotAvailableTasks.forEach(element =>
+        {
+            NotAvailableTasksArray.push(element.questionid)
+        })
+
+        const answers = await AnswerModel.find({userid: req.user.id})
+
+        const PaatosAnswers = answers.filter(function (el){
+            return el.questionCategory == "Päätöksentekotaidot"
+        })
+        var PaatoscorrectAnswers = 0;
+        var PaatoswrongAnswers = 0;
+
+        for (var i=0; i < PaatosAnswers.length; i++) {
+            if (PaatosAnswers[i].result === "Correct") {
+                PaatoscorrectAnswers += 1;
+            }
+            else if (PaatosAnswers[i].result === "Wrong")
+            {
+                PaatoswrongAnswers += 1;
+            }
+        }
+        
+        const PaatosTasks = await Task.find({category: "Päätöksentekotaidot"});
+        var PaatosTasksArray = [];
+
+        PaatosTasks.forEach(element =>
+        {
+            PaatosTasksArray.push(element._id);
+        })
+
+        NotAvailableTasksArray.forEach(element =>
+        {
+            PaatosTasksArray = PaatosTasksArray.filter(task => task._id != element)
+        })
+
+        const TaskFind = await TaskModel.find({_id: PaatosTasksArray});
+
+        var rnd = Math.floor(Math.random() * TaskFind.length);
+
+        const correctuser = await UserModel.find({_id: req.user.id});
+
+        console.log("EEEEEEEEEEEEEE")
+        console.log(correctuser)
+        console.log(correctuser.name)
+
+        console.log("AAAAAAAAAA")
+        console.log(TaskFind.question)
+        console.log(TaskFind.correctAnswer)
+
+        res.render("taskview/index.ejs", 
+        {
+            loggedin: loggedin,
+            User: correctuser,
+            Task: TaskFind[rnd],
+            rnd: rnd,
+            Answers: PaatosAnswers,
+            CorrectAnswers: PaatoscorrectAnswers,
+            WrongAnswers: PaatoswrongAnswers,
+        });
+    }
+    else
+    {
+        const PaatosTasks = await Task.find({category: "Paatos"});
+        var rnd = Math.floor(Math.random() * PaatosTasks.length);
+
+        res.render("loginview/index.ejs", 
+        {
+    
+        });
+    }
+})
+
+router.get("/matematiikka", async (req, res) =>
 {
     let loggedin = false;
 
@@ -110,22 +322,40 @@ router.get("/valioliiga", async (req, res) =>
         NotAvailableTasks.forEach(element =>
         {
             NotAvailableTasksArray.push(element.questionid)
-        })  
-        
-        const valioliigaTasks = await Task.find({category: "Valioliiga"});
-        var valioliigaTasksArray = [];
+        })
 
-        valioliigaTasks.forEach(element =>
+        const answers = await AnswerModel.find({userid: req.user.id})
+
+        const MatematiikkaAnswers = answers.filter(function (el){
+            return el.questionCategory == "La Liga"
+        })
+        var MatematiikkacorrectAnswers = 0;
+        var MatematiikkawrongAnswers = 0;
+
+        for (var i=0; i < MatematiikkaAnswers.length; i++) {
+            if (MatematiikkaAnswers[i].result === "Correct") {
+            MatematiikkacorrectAnswers += 1;
+            }
+            else if (MatematiikkaAnswers[i].result === "Wrong")
+            {
+                MatematiikkawrongAnswers += 1;
+            }
+        }
+        
+        const MatematiikkaTasks = await Task.find({category: "Matematiikka"});
+        var MatematiikkaTasksArray = [];
+
+        MatematiikkaTasks.forEach(element =>
         {
-            valioliigaTasksArray.push(element._id);
+            MatematiikkaTasksArray.push(element._id);
         })
 
         NotAvailableTasksArray.forEach(element =>
         {
-            valioliigaTasksArray = valioliigaTasksArray.filter(task => task._id != element)
+            MatematiikkaTasksArray = MatematiikkaTasksArray.filter(task => task._id != element)
         })
 
-        const TaskFind = await TaskModel.find({_id: valioliigaTasksArray});
+        const TaskFind = await TaskModel.find({_id: MatematiikkaTasksArray});
 
         var rnd = Math.floor(Math.random() * TaskFind.length);
 
@@ -133,85 +363,25 @@ router.get("/valioliiga", async (req, res) =>
         {
             loggedin: loggedin,
             Task: TaskFind[rnd],
-            rnd: rnd
+            rnd: rnd,
+            Answers: MatematiikkaAnswers,
+            CorrectAnswers: MatematiikkacorrectAnswers,
+            WrongAnswers: MatematiikkawrongAnswers,
         });
     }
     else
     {
-        const valioliigaTasks = await Task.find({category: "Valioliiga"});
-        var rnd = Math.floor(Math.random() * valioliigaTasks.length);
+        const MatematiikkaTasks = await Task.find({category: "Matematiikka"});
+        var rnd = Math.floor(Math.random() * MatematiikkaTasks.length);
 
-        res.render("taskview/index.ejs", 
+        res.render("loginview/index.ejs", 
         {
-            loggedin: loggedin,
-            Task: valioliigaTasks[rnd],
-            rnd: rnd
-        });
-    }
-})
-
-router.get("/laliga", async (req, res) =>
-{
-    let loggedin = false;
-
-    if (req.isAuthenticated())
-    {
-        loggedin = true;
-    }
-    else
-    {
-        loggedin = false;
-    }
-
-    if (req.isAuthenticated())
-    {
-        const NotAvailableTasks = await AnswerModel.find({userid: req.user.id, result: "Correct"})
-        const NotAvailableTasksArray = [];
-
-        NotAvailableTasks.forEach(element =>
-        {
-            NotAvailableTasksArray.push(element.questionid)
-        })  
-        
-        const laligaTasks = await Task.find({category: "La Liga"});
-        var laligaTasksArray = [];
-
-        laligaTasks.forEach(element =>
-        {
-            laligaTasksArray.push(element._id);
-        })
-
-        NotAvailableTasksArray.forEach(element =>
-        {
-            laligaTasksArray = laligaTasksArray.filter(task => task._id != element)
-        })
-
-        const TaskFind = await TaskModel.find({_id: laligaTasksArray});
-
-        var rnd = Math.floor(Math.random() * TaskFind.length);
-
-        res.render("taskview/index.ejs", 
-        {
-            loggedin: loggedin,
-            Task: TaskFind[rnd],
-            rnd: rnd
-        });
-    }
-    else
-    {
-        const laligaTasks = await Task.find({category: "La Liga"});
-        var rnd = Math.floor(Math.random() * laligaTasks.length);
-
-        res.render("taskview/index.ejs", 
-        {
-            loggedin: loggedin,
-            Task: laligaTasks[rnd],
-            rnd: rnd
+    
         });
     }    
 })
 
-router.get("/bundesliga", async (req, res) =>
+router.get("/suomi", async (req, res) =>
 {
     let loggedin = false;
 
@@ -234,44 +404,63 @@ router.get("/bundesliga", async (req, res) =>
             NotAvailableTasksArray.push(element.questionid)
         })
 
-        const bundesligaTasks = await Task.find({category: "Bundesliga"});
-        var bundesligaTasksArray = [];
+        const answers = await AnswerModel.find({userid: req.user.id})
 
-        bundesligaTasks.forEach(element =>
+        const SuomiAnswers = answers.filter(function (el){
+            return el.questionCategory == "Suomi"
+        })
+        var SuomicorrectAnswers = 0;
+        var SuomiwrongAnswers = 0;
+
+        for (var i=0; i <SuomiAnswers.length; i++) {
+            if (SuomiAnswers[i].result === "Correct") {
+                SuomicorrectAnswers += 1;
+            }
+            else if (SuomiAnswers[i].result === "Wrong")
+            {
+                SuomiwrongAnswers += 1;
+            }
+        }
+
+        const SuomiTasks = await Task.find({category: "Suomi"});
+        var SuomiTasksArray = [];
+
+        SuomiTasks.forEach(element =>
         {
-            bundesligaTasksArray.push(element._id);
+            SuomiTasksArray.push(element._id);
         })
 
         NotAvailableTasksArray.forEach(element =>
         {
-            bundesligaTasksArray = bundesligaTasksArray.filter(task => task._id != element)
+            SuomiTasksArray = SuomiTasksArray.filter(task => task._id != element)
         })
 
-        const TaskFind = await Task.find({_id: bundesligaTasksArray});
+        const TaskFind = await Task.find({_id: SuomiTasksArray});
         var rnd = Math.floor(Math.random() * TaskFind.length);
 
         res.render("taskview/index.ejs", 
         {
             loggedin: loggedin,
             Task: TaskFind[rnd],
-            rnd: rnd
+            rnd: rnd,
+            Answers: SuomiAnswers,
+            CorrectAnswers: SuomicorrectAnswers,
+            WrongAnswers: SuomiwrongAnswers,
         });
     }
     else
     {
-        const bundesligaTasks = await Task.find({category: "Bundesliga"});
-        var rnd = Math.floor(Math.random() * bundesligaTasks.length);
+        const SuomiTasks = await Task.find({category: "Suomi"});
+        var rnd = Math.floor(Math.random() * SuomiTasks.length);
 
-        res.render("taskview/index.ejs", 
+        res.render("loginview/index.ejs", 
         {
-            loggedin: loggedin,
-            Task: bundesligaTasks[rnd],
-            rnd: rnd
+    
         });
     }   
 })
 
-router.get("/seriea", async (req, res) =>
+router.get("/englanti", async (req, res) =>
 {
     let loggedin = false;
 
@@ -292,41 +481,60 @@ router.get("/seriea", async (req, res) =>
         NotAvailableTasks.forEach(element =>
         {
             NotAvailableTasksArray.push(element.questionid)
-        })  
-        
-        const serieaTasks = await Task.find({category: "Serie A"});
-        var serieaTasksArray = [];
+        })
 
-        serieaTasks.forEach(element =>
+        const answers = await AnswerModel.find({userid: req.user.id})
+
+        const EnglantiAnswers = answers.filter(function (el){
+            return el.questionCategory == "Englanti"
+        })
+        var EnglanticorrectAnswers = 0;
+        var EnglantiwrongAnswers = 0;
+
+        for (var i=0; i < EnglantiAnswers.length; i++) {
+            if (EnglantiAnswers[i].result === "Correct") {
+                EnglanticorrectAnswers += 1;
+            }
+            else if (EnglantiAnswers[i].result === "Wrong")
+            {
+                EnglantiwrongAnswers += 1;
+            }
+        }
+        
+        const EnglantiTasks = await Task.find({category: "Englanti"});
+        var EnglantiTasksArray = [];
+
+        EnglantiTasks.forEach(element =>
         {
-            serieaTasksArray.push(element._id);
+            EnglantiTasksArray.push(element._id);
         })
 
         NotAvailableTasksArray.forEach(element =>
         {
-            serieaTasksArray = serieaTasksArray.filter(task => task._id != element)
+            EnglantiTasksArray = EnglantiTasksArray.filter(task => task._id != element)
         })
 
-        const TaskFind = await Task.find({_id: serieaTasksArray});
+        const TaskFind = await Task.find({_id: EnglantiTasksArray});
         var rnd = Math.floor(Math.random() * TaskFind.length);
 
         res.render("taskview/index.ejs", 
         {
             loggedin: loggedin,
             Task: TaskFind[rnd],
-            rnd: rnd
+            rnd: rnd,
+            Answers: EnglantiAnswers,
+            CorrectAnswers: EnglanticorrectAnswers,
+            WrongAnswers: EnglantiwrongAnswers,
         });
     }
     else
     {
-        const serieaTasks = await Task.find({category: "Serie A"});
-        var rnd = Math.floor(Math.random() * serieaTasks.length);
+        const EnglantiTasks = await Task.find({category: "Englanti"});
+        var rnd = Math.floor(Math.random() * EnglantiTasks.length);
 
-        res.render("taskview/index.ejs", 
+        res.render("loginview/index.ejs", 
         {
-            loggedin: loggedin,
-            Task: serieaTasks[rnd],
-            rnd: rnd
+    
         });
     }    
 })
@@ -355,7 +563,7 @@ router.post('/answers', async (req, res) =>
     console.log(username)
     console.log(correctquestion[0].category)
 
-    if(correctquestion[0].correctAnswer == req.body.answer)
+    if(correctquestion[0].correctOption == req.body.answer)
     {
         console.log("Correct Answer")
         
@@ -406,17 +614,26 @@ router.get("/luo", async (req, res) =>
 
 router.post("/luo", async (req, res) => 
 {
+
+    var newText = req.body.question
+    newText = newText.replace(/\r?\n/g, "\n");
+    console.log("PPPPPPPPPPP")
+    console.log(newText)
+    
     try
     {
         console.log("try");
         const newTask = new Task({
-            question: req.body.question,
+            question: newText,
+            imageurl: req.body.imageurl,
             description: req.body.description,
+            descriptionimageurl: req.body.descriptionimageurl,
             category: req.body.category,
-            correctAnswer: req.body.correctanswer,
-            wrongAnswer1: req.body.wronganswer1,
-            wrongAnswer2: req.body.wronganswer2,
-            wrongAnswer3: req.body.wronganswer3
+            optionA: req.body.optionA,
+            optionB: req.body.optionB,
+            optionC: req.body.optionC,
+            optionD: req.body.optionD,
+            correctOption: req.body.correctOption
         })
         await newTask.save();
         console.log("New Question Saved");
@@ -428,6 +645,7 @@ router.post("/luo", async (req, res) =>
         res.redirect("/");
     }
 })
+
 
 // async function SearchQuestions(callback, availableTasks)
 // {

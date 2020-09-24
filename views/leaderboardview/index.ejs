@@ -8,14 +8,17 @@
 </head>
 <body>
     
+    <div class="wrapper">
+        <h1>Tulostaulu</h1>
+
+        <br>
+        <br>
+        
+        <% Object.keys(rez).forEach(element => { %>
+            <h5> <%= element %>: <%= rez[element] %>p </h5>
+        <% }) %>
+    </div>
+
 </body>
 </html>
 
-<h1>Tulostaulu</h1>
-
-<br>
-<br>
-
-<% Object.keys(rez).forEach(element => { %>
-    <h5> <%= element %>: <%= rez[element] %>p </h5>
-<% }) %>
