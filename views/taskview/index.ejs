@@ -155,8 +155,14 @@
                     document.getElementById("answerresult").style.color = "#03BD00";
                     document.getElementById("A").disabled = true;
                     document.getElementById("B").disabled = true;
-                    document.getElementById("C").disabled = true;
-                    document.getElementById("D").disabled = true;
+                    if(document.getElementById("C") != null)
+                    {
+                        document.getElementById("C").disabled = true;
+                    }
+                    if(document.getElementById("D") != null)
+                    {
+                        document.getElementById("D").disabled = true;
+                    }
                 }
                 else
                 {
@@ -164,8 +170,14 @@
                     document.getElementById("answerresult").style.color = "#FFA07A";
                     document.getElementById("A").disabled = true;
                     document.getElementById("B").disabled = true;
-                    document.getElementById("C").disabled = true;
-                    document.getElementById("D").disabled = true;
+                    if(document.getElementById("C") != null)
+                    {
+                        document.getElementById("C").disabled = true;
+                    }
+                    if(document.getElementById("D") != null)
+                    {
+                        document.getElementById("D").disabled = true;
+                    }
 
                     // $.ajax({
                     //     type: "GET",
@@ -189,8 +201,14 @@
                 const corr = document.getElementById("correctOption").value;
                 document.getElementById("optionAlabel").style.backgroundColor = "#FFA07A";
                 document.getElementById("optionBlabel").style.backgroundColor = "#FFA07A";
-                document.getElementById("optionClabel").style.backgroundColor = "#FFA07A";
-                document.getElementById("optionDlabel").style.backgroundColor = "#FFA07A";
+                if(document.getElementById("optionClabel") != null)
+                {
+                    document.getElementById("optionClabel").style.backgroundColor = "#FFA07A";
+                }
+                if(document.getElementById("optionDlabel") != null)
+                {
+                    document.getElementById("optionDlabel").style.backgroundColor = "#FFA07A";
+                }
                 document.getElementById("option" + corr + "label").style.backgroundColor = "#98FB98";
 
                 document.getElementById("goodquestion").style.visibility = "visible";
