@@ -182,10 +182,15 @@
 
                 document.getElementById("descriptiondiv").style.display = "block";
                 document.getElementById("descriptionimage").style.visibility = "visible";
-                document.getElementById("optionAlabel").style.backgroundColor = "#98FB98";
+
+                console.log("NNNNNNNNNNNNNNNNNN")
+                console.log(document.getElementById("correctOption"));
+                const corr = document.getElementById("correctOption").value;
+                document.getElementById("optionAlabel").style.backgroundColor = "#FFA07A";
                 document.getElementById("optionBlabel").style.backgroundColor = "#FFA07A";
                 document.getElementById("optionClabel").style.backgroundColor = "#FFA07A";
                 document.getElementById("optionDlabel").style.backgroundColor = "#FFA07A";
+                document.getElementById("option" + corr + "label").style.backgroundColor = "#98FB98";
 
                 $.post("/tehtavat/answers",
                 {
