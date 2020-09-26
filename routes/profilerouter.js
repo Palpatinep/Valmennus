@@ -26,13 +26,13 @@ router.get("/:id", async (req, res) =>
     const answers = await AnswerModel.find({userid: req.params.id})
 
     const PaatosAnswers = answers.filter(function (el){
-        return el.questionCategory == "Paatos"
+        return el.questionCategory == "Päätöksentekotaidot"
     })
     const MatematiikkaAnswers = answers.filter(function (el){
         return el.questionCategory == "La Liga"
     })
     const EnglantiAnswers = answers.filter(function (el){
-        return el.questionCategory == "Serie A"
+        return el.questionCategory == "Englanti"
     })
     const SuomiAnswers = answers.filter(function (el){
         return el.questionCategory == "Suomi"
