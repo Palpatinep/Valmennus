@@ -113,14 +113,14 @@ router.get("/kaikki", async (req, res) =>
                 }
             }
         }
-        else if(TaskFind[rnd].category == "Matematiikkas")
+        else if(TaskFind[rnd].category == "Matematiikka")
         {
             console.log("AAAAAA La")
 
             const answers = await AnswerModel.find({userid: req.user.id})
 
             CategoryAnswers = answers.filter(function (el){
-                return el.questionCategory == "Matematiikkas"
+                return el.questionCategory == "Matematiikka"
             })
             var correctAnswers = 0;
             var wrongAnswers = 0;
@@ -614,6 +614,16 @@ router.get("/luo", async (req, res) =>
 
 router.post("/luo", async (req, res) => 
 {
+    let loggedin = false;
+
+    if (req.isAuthenticated())
+    {
+        loggedin = true;
+    }
+    else
+    {
+        loggedin = false;
+    }
 
     var newText = req.body.question
     newText = newText.replace(/\r?\n/g, "\n");
@@ -637,7 +647,42 @@ router.post("/luo", async (req, res) =>
         })
         await newTask.save();
         console.log("New Question Saved");
-        res.redirect("/tehtavat");
+
+        const NotAvailableTasks = await AnswerModel.find({userid: req.user.id, result: "Correct"})
+        const NotAvailableTasksArray = [];
+
+        NotAvailableTasks.forEach(element =>
+        {
+            NotAvailableTasksArray.push(element.questionid)
+        })
+
+        const answers = await AnswerModel.find({userid: req.user.id})
+
+        const PaatosAnswers = answers.filter(function (el){
+            return el.questionCategory == "Päätöksentekotaidot"
+        })
+        var PaatoscorrectAnswers = 0;
+        var PaatoswrongAnswers = 0;
+
+        for (var i=0; i < PaatosAnswers.length; i++) {
+            if (PaatosAnswers[i].result === "Correct") {
+                PaatoscorrectAnswers += 1;
+            }
+            else if (PaatosAnswers[i].result === "Wrong")
+            {
+                PaatoswrongAnswers += 1;
+            }
+        }
+
+
+        res.render("taskview/index.ejs", 
+        {
+            loggedin: loggedin,
+            Task: newTask,
+            Answers: PaatosAnswers,
+            CorrectAnswers: PaatoscorrectAnswers,
+            WrongAnswers: PaatoswrongAnswers,
+        });
     }
     catch
     {

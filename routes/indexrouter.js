@@ -45,4 +45,9 @@ router.delete('/logout', (req, res) =>
     res.redirect('/login')
 })
 
+router.get("/admin", (req, res) =>
+{
+    res.render("taskview/create");
+})
+
 module.exports = router;
