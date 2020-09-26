@@ -65,6 +65,8 @@
                    <% } %>
     
             <button class="taskoptionbutton" onclick="window.location.reload();">Seuraava tehtävä</button>
+            <button type="submit" style="visibility: hidden;" id="goodquestion" class="goodquestion">Hyvä tehtävä :)</button>
+            <button type="submit" style="visibility: hidden;" id="badquestion" class="badquestion">Huono tehtävä :(</button>
             <button class="taskoptionbutton" style="float: right;" onclick="window.location='/tehtavat'" >Takaisin tehtävävalikkoon</button>
         </div>
         <div class="infodivwrapper">
@@ -191,6 +193,9 @@
                 document.getElementById("optionDlabel").style.backgroundColor = "#FFA07A";
                 document.getElementById("option" + corr + "label").style.backgroundColor = "#98FB98";
 
+                document.getElementById("goodquestion").style.visibility = "visible";
+                document.getElementById("badquestion").style.visibility = "visible";
+
                 $.post("/tehtavat/answers",
                 {
                     answer: checkedradio,
@@ -200,6 +205,36 @@
                     alert("Data: " + data + "\nStatus: " + status);
                 });
 
+            })
+
+            $("*.goodquestion").on("click", function()
+            {
+                $.post("/tehtavat/rating",
+                {
+                    questionid: document.getElementById("questionidlabel").value,
+                    rating: 1
+                },
+                function(data, status){
+                    alert("Data: " + data + "\nStatus: " + status);
+                });
+
+                document.getElementById("goodquestion").disabled = true;
+                document.getElementById("goodquestion").style.backgroundColor = "#98FB98";
+                document.getElementById("badquestion").disabled = true;
+            })
+            $("*.badquestion").on("click", function()
+            {
+                $.post("/tehtavat/rating",
+                {
+                    questionid: document.getElementById("questionidlabel").value,
+                    rating: -1
+                },
+                function(data, status){
+                    alert("Data: " + data + "\nStatus: " + status);
+                });
+                document.getElementById("goodquestion").disabled = true;
+                document.getElementById("badquestion").disabled = true;
+                document.getElementById("badquestion").style.backgroundColor = "#FFA07A";
             })
         })
     </script>

@@ -44,6 +44,16 @@
             <input style="margin-left: 350px; width: 600px; font-size: 14px;" type="text" id="descriptionimageurl" name="descriptionimageurl">
         </div>
         <div>
+            <label style="margin-left: 350px" for="category" name="category">Kategoria</label>
+    
+            <% const categories = ["Päätöksentekotaidot", "Matematiikka", "Suomi", "Englanti"] %>
+            <select style="margin-left: 350px" name="category">
+                <% categories.forEach(element => { %>
+                <option label=" <%= element %>" value="<%= element %>">
+                <% }) %>
+            </select>
+        </div>
+        <div>
             <label style="margin-left: 350px" name="optionA">Vaihtoehto A</label>
             <input style="margin-left: 350px; width: 600px; font-size: 14px;" type="text" id="optionA" name="optionA" required>
         </div>

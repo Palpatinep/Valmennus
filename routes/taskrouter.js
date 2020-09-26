@@ -592,8 +592,21 @@ router.post('/answers', async (req, res) =>
         });
         await newAnswer.save();
     }
- });
+});
 
+router.post("/rating", async (req, res) => 
+{
+    var taskquery = {_id: req.body.questionid}
+
+    if (req.body.rating == 1)
+    {
+        await TaskModel.updateOne(taskquery, {$inc: {Rating: 1}})
+    }
+    else
+    {       
+        await TaskModel.updateOne(taskquery, {$inc: {Rating: -1}})
+    }
+})
 
 router.get("/luo", async (req, res) =>
 {
@@ -707,7 +720,7 @@ router.post("/admin/update", async (req, res) =>
 
     var taskquery = {_id: req.body.questionid}
     
-    await TaskModel.updateOne(taskquery, {$set: {question: newText, imageurl: req.body.imageurl, description: req.body.description, descriptionimageurl: req.body.descriptionimageurl, optionA: req.body.optionA, optionB: req.body.optionB, optionC: req.body.optionC, optionD: req.body.optionD, correctOption: req.body.correctOption}})
+    await TaskModel.updateOne(taskquery, {$set: {question: newText, imageurl: req.body.imageurl, description: req.body.description, descriptionimageurl: req.body.descriptionimageurl, category: req.body.category, optionA: req.body.optionA, optionB: req.body.optionB, optionC: req.body.optionC, optionD: req.body.optionD, correctOption: req.body.correctOption}})
 
     const Task = await TaskModel.find({_id: req.body.questionid})
 

@@ -42,6 +42,10 @@ const TaskSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    Rating:{
+        type: Number,
+        required: false
+    }
 })
 
 module.exports = mongoose.model("TaskModel", TaskSchema);
