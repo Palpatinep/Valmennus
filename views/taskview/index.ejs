@@ -30,20 +30,20 @@
                     <br>
                     <div class="choiceradiowrapper" id="shuffle">
                         <div>
-                            <input type="radio" id="A" name="questionchoice" value="<%=Task.optionA%>">
+                            <input type="radio" style="border: 0px;  width: 20px; height: 20px; margin-bottom: 15px;" id="A" name="questionchoice" value="<%=Task.optionA%>">
                             <label style="font-size: 20px;" for="A" id="optionAlabel"><%=Task.optionA%></label><br>
                         </div>
                         <div>
-                            <input type="radio" id="B" name="questionchoice" value="<%=Task.optionB%>">
+                            <input type="radio" style="border: 0px;  width: 20px; height: 20px; margin-bottom: 15px;" id="B" name="questionchoice" value="<%=Task.optionB%>">
                             <label style="font-size: 20px;" for="B" id="optionBlabel"><%=Task.optionB%></label><br>
                         </div>
                         <div>
-                            <input type="radio" id="C" name="questionchoice" value="<%=Task.optionC%>">
+                            <input type="radio" style="border: 0px;  width: 20px; height: 20px; margin-bottom: 15px;" id="C" name="questionchoice" value="<%=Task.optionC%>">
                             <label style="font-size: 20px;" for="C" id="optionClabel"><%=Task.optionC%></label><br>
                         </div>
                         <% if (Task.optionD != "") { %>
                         <div>
-                            <input type="radio" id="D" name="questionchoice" value="<%=Task.optionD%>">
+                            <input type="radio" style="border: 0px;  width: 20px; height: 20px; margin-bottom: 15px;" id="D" name="questionchoice" value="<%=Task.optionD%>">
                             <label style="font-size: 20px;" for="D" id="optionDlabel"><%=Task.optionD%></label><br>
                         </div>
                         <% } %>
@@ -57,7 +57,7 @@
                 
                 
                 <br>
-                <h2 id="answerresult"></h2>
+                <h2 style="font-size: 50px;" id="answerresult"></h2>
                 <br>
                 <div class="taskdescription" id="descriptiondiv" style="display: none; white-space: pre-wrap"><%=Task.description%> <img id="descriptionimage" src="<%=Task.descriptionimageurl%>" style="visibility: hidden; margin: 20px; width: 90%"> </div>
                 
