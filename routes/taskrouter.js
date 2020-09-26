@@ -648,40 +648,10 @@ router.post("/luo", async (req, res) =>
         await newTask.save();
         console.log("New Question Saved");
 
-        const NotAvailableTasks = await AnswerModel.find({userid: req.user.id, result: "Correct"})
-        const NotAvailableTasksArray = [];
-
-        NotAvailableTasks.forEach(element =>
-        {
-            NotAvailableTasksArray.push(element.questionid)
-        })
-
-        const answers = await AnswerModel.find({userid: req.user.id})
-
-        const PaatosAnswers = answers.filter(function (el){
-            return el.questionCategory == "Päätöksentekotaidot"
-        })
-        var PaatoscorrectAnswers = 0;
-        var PaatoswrongAnswers = 0;
-
-        for (var i=0; i < PaatosAnswers.length; i++) {
-            if (PaatosAnswers[i].result === "Correct") {
-                PaatoscorrectAnswers += 1;
-            }
-            else if (PaatosAnswers[i].result === "Wrong")
-            {
-                PaatoswrongAnswers += 1;
-            }
-        }
-
-
         res.render("taskview/index.ejs", 
         {
             loggedin: loggedin,
-            Task: newTask,
-            Answers: PaatosAnswers,
-            CorrectAnswers: PaatoscorrectAnswers,
-            WrongAnswers: PaatoswrongAnswers,
+            Task: newTask
         });
     }
     catch
