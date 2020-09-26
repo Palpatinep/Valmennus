@@ -73,7 +73,7 @@
             <% if (locals.Task) { %>
             <p style="font-size: 20px;"><%= Task.category %>:</p>
             <% } %>
-            <% if (locals.CorrectAnswers) { %>
+            <% if (locals.CorrectAnswers >= 0) { %>
             <h5 id="profilecorrectanswerpercentage" class="profilelist">(<%= ((CorrectAnswers / Answers.length).toFixed(2) * 100) || 0 %> %)</h5>
             <p id="profileansweramount" class="profilelist">Vastauksia: <%= Answers.length %></p>
             <p id="profilecorrectansweramount" class="profilelist">Oikein: <%= CorrectAnswers %></p>
