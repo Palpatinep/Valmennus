@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+    <a style="margin-left: 350px" href="/tehtavat/luo">Luo tehtävä</a>
+    <div style="width: 300px; margin-left: 500px;" class="select">
+        <select id="tasks" name="tasks">
+        <% tasks.forEach(element => { %>
+        <option label="<%= element.question %>" value="<%= element._id %>">
+        <% }) %>
+        </select>
+    </div>
+
+    <button style="margin-left: 500px;" type="submit" class="myButton" id=okbutton>OK</button>
+
+
+    <br>
+    <br>
+    <br>
+    
+    <br>
+    <form action="/tehtavat/admin/update" method="POST">
+        <div>
+            <input style="margin-left: 350px" type="text" id="questionid" name="questionid">
+        </div>
+        <div>
+            <label style="margin-left: 350px" for="question" name="question">Kysymys</label>
+            <textarea style="margin-left: 350px; white-space: pre-wrap" type="text" id="question" name="question" rows="6" cols="50" required></textarea>
+        </div>
+        <div>
+            <label style="margin-left: 350px" for="imageurl" name="imageurl">Kuva URL</label>
+            <input style="margin-left: 350px; white-space: pre-wrap" type="text" id="imageurl" name="imageurl">
+        </div>
+        <div>
+            <label style="margin-left: 350px" for="description" name="description">Lisätiedot</label>
+            <textarea style="margin-left: 350px; white-space: pre-wrap" type="text" id="description" name="description" required></textarea>
+        </div>
+        <div>
+            <label style="margin-left: 350px" for="descriptionimageurl" name="descriptionimageurl">Lisätietokuva URL</label>
+            <input style="margin-left: 350px; white-space: pre-wrap" type="text" id="descriptionimageurl" name="descriptionimageurl">
+        </div>
+        <div>
+            <label style="margin-left: 350px" name="optionA">Vaihtoehto A</label>
+            <input style="margin-left: 350px" type="text" id="optionA" name="optionA" required>
+        </div>
+        <div>
+            <label style="margin-left: 350px" name="optionB">Vaihtoehto B</label>
+            <input style="margin-left: 350px" type="text" id="optionB" name="optionB" required>
+        </div>
+        <div>
+            <label style="margin-left: 350px" name="optionC">Vaihtoehto C</label>
+            <input style="margin-left: 350px" type="text" id="optionC" name="optionC">
+        </div>
+        <div>
+            <label style="margin-left: 350px" name="optionD">Vaihtoehto D</label>
+            <input style="margin-left: 350px" type="text" id="optionD" name="optionD">
+        </div>
+        <div>
+            <label style="margin-left: 350px" name="correctOption">Oikea vaihtoehto (A, B, C, D)</label>
+            <input style="margin-left: 350px" type="text" id="correctOption" name="correctOption">
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+        <button style="margin-left: 350px" type="submit">OK</button>
+    </form>
+
+    
+
+    <script>
+        $('#okbutton').on('click', function() {
+
+            console.log(document.getElementById("tasks").value)
+
+            $.ajax({
+                    type: "GET",
+                    url: "/tehtavat/admin/" + document.getElementById("tasks").value,
+                    dataType: "json",
+                    success: function(tasks)
+                    {
+                        $.each(tasks, function(i, task)
+                        {
+                            document.getElementById("questionid").value = task._id;
+                            document.getElementById("questionid").innerHTML = task._id;
+                            document.getElementById("question").innerHTML = task.question;
+                            document.getElementById("imageurl").value = task.imageurl;
+                            document.getElementById("description").innerHTML = task.description;
+                            document.getElementById("descriptionimageurl").value = task.descriptionimageurl;
+                            document.getElementById("optionA").value = task.optionA;
+                            document.getElementById("optionB").value = task.optionB;
+                            document.getElementById("optionC").value = task.optionC;
+                            document.getElementById("optionD").value = task.optionD;
+                            document.getElementById("correctOption").value = task.correctOption;
+                        })
+                    }          
+            });
+        });
+    </script>
+</body>
+</html>
