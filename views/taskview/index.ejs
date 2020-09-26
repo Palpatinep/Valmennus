@@ -21,7 +21,9 @@
                     <div style="background-color: white; padding: 10px;"  >
                         <p style="white-space: pre-wrap; font-size: 20px;"><%= Task.question %></p>
                         <br>
+                        <% if (Task.imageurl != "") { %>
                         <img id="taskimage" style="width: 100%; border-color: black; border-radius: 1px; border-style: solid;" src="<%=Task.imageurl%>">
+                        <% } %>
                     </div>
                     <br>
                     <hr>
