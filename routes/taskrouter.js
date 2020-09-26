@@ -693,7 +693,6 @@ router.post("/luo", async (req, res) =>
 
 router.get("/admin", async (req, res) => 
 {
-
     const tasks = await TaskModel.find({});
     console.log("GGGGGGGGGGGGGGGGG")
     console.log(tasks)
@@ -744,39 +743,10 @@ router.post("/admin/update", async (req, res) =>
 
     try
     {
-        const NotAvailableTasks = await AnswerModel.find({userid: req.user.id, result: "Correct"})
-        const NotAvailableTasksArray = [];
-
-        NotAvailableTasks.forEach(element =>
-        {
-            NotAvailableTasksArray.push(element.questionid)
-        })
-
-        const answers = await AnswerModel.find({userid: req.user.id})
-
-        const PaatosAnswers = answers.filter(function (el){
-            return el.questionCategory == "Päätöksentekotaidot"
-        })
-        var PaatoscorrectAnswers = 0;
-        var PaatoswrongAnswers = 0;
-
-        for (var i=0; i < PaatosAnswers.length; i++) {
-            if (PaatosAnswers[i].result === "Correct") {
-                PaatoscorrectAnswers += 1;
-            }
-            else if (PaatosAnswers[i].result === "Wrong")
-            {
-                PaatoswrongAnswers += 1;
-            }
-        }
-
         res.render("taskview/index.ejs", 
         {
             loggedin: loggedin,
-            Task: Task,
-            Answers: PaatosAnswers,
-            CorrectAnswers: PaatoscorrectAnswers,
-            WrongAnswers: PaatoswrongAnswers,
+            Task: Task[0]
         });
     }
     catch
@@ -786,7 +756,27 @@ router.post("/admin/update", async (req, res) =>
     }
 })
 
+router.post("/admin/show", async (req, res) => 
+{
+    let loggedin = false;
 
+    if (req.isAuthenticated())
+    {
+        loggedin = true;
+    }
+    else
+    {
+        loggedin = false;
+    }
+
+    const task = await TaskModel.find({_id: req.body.questionid2})
+
+    res.render("taskview/index.ejs", 
+    {
+        loggedin: loggedin,
+        Task: task[0]
+    });
+})
 
 // async function SearchQuestions(callback, availableTasks)
 // {

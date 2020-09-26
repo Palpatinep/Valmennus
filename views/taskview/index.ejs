@@ -15,7 +15,8 @@
         <div class="taskwrapper">
             <% if (Task != undefined) { %>
                 <form action="/tehtavat/kaikki" method="POST">
-                    <input style="visibility: hidden" id="questionidlabel" value="<%= Task.id %>" type="text" name="questionidlabel"></input>
+                    <input style="display: none" id="questionidlabel" value="<%= Task.id %>" type="text" name="questionidlabel"></input>
+                    <input id="correctOption" style="display: none" value="<%=Task.correctOption%>">
                     <br>
                     <br>
                     <div style="background-color: white; padding: 10px;"  >
@@ -51,14 +52,10 @@
                     <br>
                     <div>
                         <button type="submit" id="answerbutton" class="answerbutton" disabled>OK</button>
+                        <h2 style="font-size: 50px" id="answerresult"></h2>
                     </div>
-                    <input id="correctOption" style="display: none" value="<%=Task.correctOption%>">
                 </form>
                 
-                
-                <br>
-                <h2 style="font-size: 50px;" id="answerresult"></h2>
-                <br>
                 <div class="taskdescription" id="descriptiondiv" style="display: none; white-space: pre-wrap"><%=Task.description%> <img id="descriptionimage" src="<%=Task.descriptionimageurl%>" style="visibility: hidden; margin: 20px; width: 90%"> </div>
                 
                 <br>
@@ -71,13 +68,15 @@
             <button class="taskoptionbutton" style="float: right;" onclick="window.location='/tehtavat'" >Takaisin tehtävävalikkoon</button>
         </div>
         <div class="infodivwrapper">
-            <% if (Task != undefined) { %>
+            <% if (locals.Task) { %>
             <p style="font-size: 20px;"><%= Task.category %>:</p>
             <% } %>
+            <% if (locals.CorrectAnswers) { %>
             <h5 id="profilecorrectanswerpercentage" class="profilelist">(<%= ((CorrectAnswers / Answers.length).toFixed(2) * 100) || 0 %> %)</h5>
             <p id="profileansweramount" class="profilelist">Vastauksia: <%= Answers.length %></p>
             <p id="profilecorrectansweramount" class="profilelist">Oikein: <%= CorrectAnswers %></p>
             <p id="profilewrongansweramount" class="profilelist">Väärin: <%= WrongAnswers %></p>
+            <% } %>
         </div>
     </div>
     

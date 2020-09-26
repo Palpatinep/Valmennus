@@ -18,7 +18,6 @@
 
     <button style="margin-left: 500px;" type="submit" class="myButton" id=okbutton>OK</button>
 
-
     <br>
     <br>
     <br>
@@ -72,7 +71,13 @@
         <button style="margin-left: 350px" type="submit">OK</button>
     </form>
 
-    
+    <br>
+    <form action="/tehtavat/admin/show" method="POST">
+        <div>
+            <input style="margin-left: 350px" type="text" id="questionid2" name="questionid2" readonly>
+        </div>
+        <button style="margin-left: 350px" type="submit">Näytä tehtävä</button>
+    </form>
 
     <script>
         $('#okbutton').on('click', function() {
@@ -88,6 +93,7 @@
                         $.each(tasks, function(i, task)
                         {
                             document.getElementById("questionid").value = task._id;
+                            document.getElementById("questionid2").value = task._id;
                             document.getElementById("questionid").innerHTML = task._id;
                             document.getElementById("question").innerHTML = task.question;
                             document.getElementById("imageurl").value = task.imageurl;
