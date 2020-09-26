@@ -691,6 +691,102 @@ router.post("/luo", async (req, res) =>
     }
 })
 
+router.get("/admin", async (req, res) => 
+{
+
+    const tasks = await TaskModel.find({});
+    console.log("GGGGGGGGGGGGGGGGG")
+    console.log(tasks)
+    res.render("adminview/admin.ejs",
+    {
+        tasks: tasks
+    })
+})
+
+router.get("/admin/:id", async (req, res) => 
+{
+    let tasksearchoptions = {_id: req.params.id};
+    console.log("RRRRRRRRRRRRRRRRRR")
+    console.log(req.params.id)
+    
+    const task = await TaskModel.find(tasksearchoptions).exec()
+    .then(doc => 
+        {
+            console.log(doc)
+            res.status(200).json(doc);
+        });
+
+
+    res.redirect("/admin");
+})
+
+router.post("/admin/update", async (req, res) => 
+{
+    let loggedin = false;
+
+    if (req.isAuthenticated())
+    {
+        loggedin = true;
+    }
+    else
+    {
+        loggedin = false;
+    }
+
+    var newText = req.body.question
+    newText = newText.replace(/\r?\n/g, "\n");
+
+    var taskquery = {_id: req.body.questionid}
+    
+    await TaskModel.updateOne(taskquery, {$set: {question: newText, imageurl: req.body.imageurl, description: req.body.description, descriptionimageurl: req.body.descriptionimageurl, optionA: req.body.optionA, optionB: req.body.optionB, optionC: req.body.optionC, optionD: req.body.optionD, correctOption: req.body.correctOption}})
+
+    const Task = await TaskModel.find({_id: req.body.questionid})
+
+    try
+    {
+        const NotAvailableTasks = await AnswerModel.find({userid: req.user.id, result: "Correct"})
+        const NotAvailableTasksArray = [];
+
+        NotAvailableTasks.forEach(element =>
+        {
+            NotAvailableTasksArray.push(element.questionid)
+        })
+
+        const answers = await AnswerModel.find({userid: req.user.id})
+
+        const PaatosAnswers = answers.filter(function (el){
+            return el.questionCategory == "Päätöksentekotaidot"
+        })
+        var PaatoscorrectAnswers = 0;
+        var PaatoswrongAnswers = 0;
+
+        for (var i=0; i < PaatosAnswers.length; i++) {
+            if (PaatosAnswers[i].result === "Correct") {
+                PaatoscorrectAnswers += 1;
+            }
+            else if (PaatosAnswers[i].result === "Wrong")
+            {
+                PaatoswrongAnswers += 1;
+            }
+        }
+
+        res.render("taskview/index.ejs", 
+        {
+            loggedin: loggedin,
+            Task: Task,
+            Answers: PaatosAnswers,
+            CorrectAnswers: PaatoscorrectAnswers,
+            WrongAnswers: PaatoswrongAnswers,
+        });
+    }
+    catch
+    {
+        console.log("FAIL");
+        res.redirect("/");
+    }
+})
+
+
 
 // async function SearchQuestions(callback, availableTasks)
 // {

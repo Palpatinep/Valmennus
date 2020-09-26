@@ -47,7 +47,7 @@ router.delete('/logout', (req, res) =>
 
 router.get("/admin", (req, res) =>
 {
-    res.render("taskview/create");
+    res.render("taskview/admin");
 })
 
 module.exports = router;
