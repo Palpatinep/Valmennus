@@ -52,11 +52,14 @@
                     <br>
                     <div>
                         <button type="submit" id="answerbutton" class="answerbutton" disabled>OK</button>
-                        <h2 style="font-size: 50px" id="answerresult"></h2>
+                        <br>
+                        <h2 style="font-size: 50px; display: inline-flex;" id="answerresult"></h2>
+                        <button type="submit" style="visibility: hidden; margin-left: 150px; margin-top: 40px; font-size: 18px;  width: 170px;" id="goodquestion" class="goodquestion">Hyvä tehtävä :)</button>
+                        <button type="submit" style="visibility: hidden; margin-top: 40px; font-size: 18px; width: 170px;" id="badquestion" class="badquestion">Huono tehtävä :(</button>
                     </div>
                 </form>
                 
-                <div class="taskdescription" id="descriptiondiv" style="display: none; white-space: pre-wrap"><%=Task.description%> <img id="descriptionimage" src="<%=Task.descriptionimageurl%>" style="visibility: hidden; margin: 20px; width: 90%"> </div>
+                <div class="taskdescription" id="descriptiondiv" style="display: none; white-space: pre-wrap"><%=Task.description%><%if(Task.descriptionimageurl != ""){%><img id="descriptionimage" src="<%=Task.descriptionimageurl%>" style="visibility: hidden; margin: 20px; width: 90%"><%}%></div>
                 
                 <br>
             
@@ -199,6 +202,7 @@
                 console.log("NNNNNNNNNNNNNNNNNN")
                 console.log(document.getElementById("correctOption"));
                 const corr = document.getElementById("correctOption").value;
+                document.getElementById("answerbutton").disabled = true;
                 document.getElementById("optionAlabel").style.backgroundColor = "#FFA07A";
                 document.getElementById("optionBlabel").style.backgroundColor = "#FFA07A";
                 if(document.getElementById("optionClabel") != null)

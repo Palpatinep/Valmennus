@@ -208,10 +208,6 @@ router.get("/kaikki", async (req, res) =>
 
 router.get("/paatoksentekotaidot", async (req, res) =>
 {
-
-    const testi = "asd \n asd"
-    console.log(testi)
-
     let loggedin = false;
 
     if (req.isAuthenticated())
@@ -270,14 +266,6 @@ router.get("/paatoksentekotaidot", async (req, res) =>
 
         const correctuser = await UserModel.find({_id: req.user.id});
 
-        console.log("EEEEEEEEEEEEEE")
-        console.log(correctuser)
-        console.log(correctuser.name)
-
-        console.log("AAAAAAAAAA")
-        console.log(TaskFind.question)
-        console.log(TaskFind.correctAnswer)
-
         res.render("taskview/index.ejs", 
         {
             loggedin: loggedin,
@@ -291,7 +279,7 @@ router.get("/paatoksentekotaidot", async (req, res) =>
     }
     else
     {
-        const PaatosTasks = await Task.find({category: "Paatos"});
+        const PaatosTasks = await Task.find({category: "Päätöksentekotaidot"});
         var rnd = Math.floor(Math.random() * PaatosTasks.length);
 
         res.render("loginview/index.ejs", 
