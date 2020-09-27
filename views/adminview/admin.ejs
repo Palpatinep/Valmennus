@@ -89,6 +89,13 @@
         <button style="margin-left: 350px" type="submit">Näytä tehtävä</button>
     </form>
 
+    <form action="/tehtavat/admin/delete" method="POST">
+        <div>
+            <input style="margin-left: 350px" type="text" id="questionid3" name="questionid3" readonly>
+        </div>
+        <button style="margin-left: 350px" type="submit">Poista tehtävä</button>
+    </form>
+
     <script>
         $('#okbutton').on('click', function() {
 
@@ -104,6 +111,7 @@
                         {
                             document.getElementById("questionid").value = task._id;
                             document.getElementById("questionid2").value = task._id;
+                            document.getElementById("questionid3").value = task._id;
                             document.getElementById("questionid").innerHTML = task._id;
                             document.getElementById("question").innerHTML = task.question;
                             document.getElementById("imageurl").value = task.imageurl;

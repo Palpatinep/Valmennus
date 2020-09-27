@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const UserModel = require("../models/UserModel");
 const AnswerModel = require("../models/AnswerModel");
 const TaskModel = require("../models/TaskModel");
+const { isValidObjectId } = require("mongoose");
 
 router.use(bodyParser.urlencoded({ limit: "10mb", extended: false }));
 
@@ -665,8 +666,6 @@ router.post("/luo", async (req, res) =>
 router.get("/admin", async (req, res) => 
 {
     const tasks = await TaskModel.find({});
-    console.log("GGGGGGGGGGGGGGGGG")
-    console.log(tasks)
     res.render("adminview/admin.ejs",
     {
         tasks: tasks
@@ -729,6 +728,7 @@ router.post("/admin/update", async (req, res) =>
 
 router.post("/admin/show", async (req, res) => 
 {
+    console.log("WWWWWWWWWWWWWWWWWWWWWWW Show")
     let loggedin = false;
 
     if (req.isAuthenticated())
@@ -747,6 +747,42 @@ router.post("/admin/show", async (req, res) =>
         loggedin: loggedin,
         Task: task[0]
     });
+})
+
+router.post("/admin/delete", async (req, res) => 
+{
+    console.log("FFFFFFFFFFFFFFFFFFFF Delete")
+
+    let loggedin = false;
+
+    if (req.isAuthenticated())
+    {
+        loggedin = true;
+    }
+    else
+    {
+        loggedin = false;
+    }
+
+    var taskquery = {_id: req.body.questionid3}
+
+    console.log("EEEEEEEEEEEEEEEE")
+    console.log(req.body.questionid3)
+
+    TaskModel.deleteOne(taskquery, function(err, obj) {
+        if (err) throw err;
+        console.log("1 document deleted");
+      });
+
+    // const tasks = await TaskModel.find({});
+    // console.log(tasks)
+
+    // res.render("adminview/admin.ejs", 
+    // {
+    //     tasks: tasks
+    // });
+
+    res.redirect("/tehtavat/admin")
 })
 
 // async function SearchQuestions(callback, availableTasks)
