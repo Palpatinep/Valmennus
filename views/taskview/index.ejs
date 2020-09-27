@@ -52,10 +52,10 @@
                     <br>
                     <div>
                         <button type="submit" id="answerbutton" class="answerbutton" disabled>OK</button>
+                        <button type="submit" style="visibility: hidden; margin-left: 100px; font-size: 18px; width: 170px;" id="goodquestion" class="goodquestion">Hyvä tehtävä :)</button>
+                        <button type="submit" style="visibility: hidden; font-size: 18px; width: 170px;" id="badquestion" class="badquestion">Huono tehtävä :(</button>
                         <br>
                         <h2 style="font-size: 50px; display: inline-flex;" id="answerresult"></h2>
-                        <button type="submit" style="visibility: hidden; margin-left: 150px; margin-top: 40px; font-size: 18px;  width: 170px;" id="goodquestion" class="goodquestion">Hyvä tehtävä :)</button>
-                        <button type="submit" style="visibility: hidden; margin-top: 40px; font-size: 18px; width: 170px;" id="badquestion" class="badquestion">Huono tehtävä :(</button>
                     </div>
                 </form>
                 
@@ -68,8 +68,6 @@
                    <% } %>
     
             <button class="taskoptionbutton" onclick="window.location.reload();">Seuraava tehtävä</button>
-            <button type="submit" style="visibility: hidden;" id="goodquestion" class="goodquestion">Hyvä tehtävä :)</button>
-            <button type="submit" style="visibility: hidden;" id="badquestion" class="badquestion">Huono tehtävä :(</button>
             <button class="taskoptionbutton" style="float: right;" onclick="window.location='/tehtavat'" >Takaisin tehtävävalikkoon</button>
         </div>
         <div class="infodivwrapper">
@@ -197,7 +195,10 @@
                 }
 
                 document.getElementById("descriptiondiv").style.display = "block";
-                document.getElementById("descriptionimage").style.visibility = "visible";
+                if (document.getElementById("descriptionimage") != undefined)
+                {
+                    document.getElementById("descriptionimage").style.visibility = "visible";
+                }   
 
                 console.log("NNNNNNNNNNNNNNNNNN")
                 console.log(document.getElementById("correctOption"));
@@ -215,8 +216,10 @@
                 }
                 document.getElementById("option" + corr + "label").style.backgroundColor = "#98FB98";
 
+                console.log("MMMMMMMMMMMMMMMMMMMM");
                 document.getElementById("goodquestion").style.visibility = "visible";
                 document.getElementById("badquestion").style.visibility = "visible";
+                console.log("NNNNNNNNNNNNNNNNN");
 
                 $.post("/tehtavat/answers",
                 {
