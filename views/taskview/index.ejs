@@ -55,7 +55,7 @@
                         <button type="submit" style="visibility: hidden; margin-left: 100px; font-size: 18px; width: 170px;" id="goodquestion" class="goodquestion">Hyvä tehtävä :)</button>
                         <button type="submit" style="visibility: hidden; font-size: 18px; width: 170px;" id="badquestion" class="badquestion">Huono tehtävä :(</button>
                         <br>
-                        <h2 style="font-size: 50px; display: inline-flex;" id="answerresult"></h2>
+                        <h2 style="font-size: 50px; display: none;" id="answerresult"></h2>
                     </div>
                 </form>
                 
@@ -66,20 +66,20 @@
                 <% } else { %>
                     <div>TEHTÄVÄT LOPPU</div>
                    <% } %>
-    
-            <button class="taskoptionbutton" onclick="window.location.reload();">Seuraava tehtävä</button>
-            <button class="taskoptionbutton" style="float: right;" onclick="window.location='/tehtavat'" >Takaisin tehtävävalikkoon</button>
+                
         </div>
         <div class="infodivwrapper">
             <% if (locals.Task) { %>
             <p style="font-size: 20px;"><%= Task.category %>:</p>
             <% } %>
             <% if (locals.CorrectAnswers >= 0) { %>
-            <h5 id="profilecorrectanswerpercentage" class="profilelist">(<%= ((CorrectAnswers / Answers.length).toFixed(2) * 100) || 0 %> %)</h5>
+            <h5 id="profilecorrectanswerpercentage" class="profilelist">(<%= Math.round(((CorrectAnswers / Answers.length).toFixed(2) * 100) || 0) %> %)</h5>
             <p id="profileansweramount" class="profilelist">Vastauksia: <%= Answers.length %></p>
             <p id="profilecorrectansweramount" class="profilelist">Oikein: <%= CorrectAnswers %></p>
             <p id="profilewrongansweramount" class="profilelist">Väärin: <%= WrongAnswers %></p>
             <% } %>
+            <button class="taskoptionbutton" style="margin-top: 200px; width: 200px; height: 80px; font-size: 20px;" onclick="window.location.reload();">Seuraava tehtävä</button>
+            <button class="taskoptionbutton" style="margin-top: 50px; width: 200px; height: 80px; font-size: 20px;" onclick="window.location='/tehtavat'" >Takaisin tehtävävalikkoon</button>
         </div>
     </div>
     
@@ -152,7 +152,8 @@
 
                 if (checkedradio == document.getElementById("correctOption").value)
                 {
-                    document.getElementById("answerresult").innerHTML = "Oikea vastaus"
+                    document.getElementById("answerresult").innerHTML = "Oikea vastaus";
+                    document.getElementById("answerresult").style.display = "block";
                     document.getElementById("answerresult").style.color = "#03BD00";
                     document.getElementById("A").disabled = true;
                     document.getElementById("B").disabled = true;
@@ -167,7 +168,8 @@
                 }
                 else
                 {
-                    document.getElementById("answerresult").innerHTML = "Väärä vastaus"
+                    document.getElementById("answerresult").innerHTML = "Väärä vastaus";
+                    document.getElementById("answerresult").style.display = "block";
                     document.getElementById("answerresult").style.color = "#FFA07A";
                     document.getElementById("A").disabled = true;
                     document.getElementById("B").disabled = true;
@@ -216,10 +218,8 @@
                 }
                 document.getElementById("option" + corr + "label").style.backgroundColor = "#98FB98";
 
-                console.log("MMMMMMMMMMMMMMMMMMMM");
                 document.getElementById("goodquestion").style.visibility = "visible";
                 document.getElementById("badquestion").style.visibility = "visible";
-                console.log("NNNNNNNNNNNNNNNNN");
 
                 $.post("/tehtavat/answers",
                 {
