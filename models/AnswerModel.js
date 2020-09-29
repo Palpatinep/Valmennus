@@ -27,6 +27,10 @@ const AnswerSchema = new mongoose.Schema({
     date:{
         type: String,
         required: false
+    },
+    answerTime:{
+        type: Number,
+        required: false
     }
 })
 

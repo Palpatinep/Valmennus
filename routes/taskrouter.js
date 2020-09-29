@@ -548,9 +548,13 @@ router.post('/answers', async (req, res) =>
     const correctquestion = await Task.find({_id: req.body.questionid});
     const correctuser = await UserModel.find({_id: req.user.id});
     const username = correctuser[0].name;
-    console.log("AAAAAAAAAAAAAA");
-    console.log(username)
-    console.log(correctquestion[0].category)
+
+    var seconds = parseInt(req.body.seconds);
+    var minutes = parseInt(req.body.minutes);
+    var time = (minutes * 60) + seconds;
+    console.log(seconds)
+    console.log(minutes)
+    console.log(time)
 
     if(correctquestion[0].correctOption == req.body.answer)
     {
@@ -562,7 +566,8 @@ router.post('/answers', async (req, res) =>
             questionCategory: correctquestion[0].category,
             username: username,
             result: "Correct",
-            date: new Date().toString()
+            date: new Date().toString(),
+            answerTime: time
         });
         await newAnswer.save();
         console.log(newAnswer)
@@ -577,7 +582,8 @@ router.post('/answers', async (req, res) =>
             questionCategory: correctquestion[0].category,
             username: username,
             result: "Wrong",
-            date: new Date().toString()
+            date: new Date().toString(),
+            answerTime: time
         });
         await newAnswer.save();
     }

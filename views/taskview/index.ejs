@@ -12,12 +12,15 @@
 
     <br>
     <div class="taskwindowwrapper">
+
         <div class="taskwrapper">
+            <p id="timer" style="font-size: 18px; float: right; margin-right: 5px; margin-top: 10px;">0:00</p>
             <% if (Task != undefined) { %>
                 <form action="/tehtavat/kaikki" method="POST">
                     <input style="display: none" id="questionidlabel" value="<%= Task.id %>" type="text" name="questionidlabel"></input>
                     <input id="correctOption" style="display: none" value="<%=Task.correctOption%>">
                     <br>
+
                     <br>
                     <div style="background-color: white; padding: 10px;"  >
                         <p style="white-space: pre-wrap; font-size: 20px;"><%= Task.question %></p>
@@ -26,6 +29,7 @@
                         <img id="taskimage" style="width: 100%; border-color: black; border-radius: 1px; border-style: solid;" src="<%=Task.imageurl%>">
                         <% } %>
                     </div>
+                    <br>
                     <br>
                     <hr>
                     <br>
@@ -38,10 +42,12 @@
                             <input type="radio" style="border: 0px;  width: 20px; height: 20px; margin-bottom: 15px;" id="B" name="questionchoice" value="<%=Task.optionB%>">
                             <label style="font-size: 20px;" for="B" id="optionBlabel"><%=Task.optionB%></label><br>
                         </div>
+                        <% if (Task.optionD != "") { %>
                         <div>
                             <input type="radio" style="border: 0px;  width: 20px; height: 20px; margin-bottom: 15px;" id="C" name="questionchoice" value="<%=Task.optionC%>">
                             <label style="font-size: 20px;" for="C" id="optionClabel"><%=Task.optionC%></label><br>
                         </div>
+                        <% } %>
                         <% if (Task.optionD != "") { %>
                         <div>
                             <input type="radio" style="border: 0px;  width: 20px; height: 20px; margin-bottom: 15px;" id="D" name="questionchoice" value="<%=Task.optionD%>">
@@ -55,7 +61,7 @@
                         <button type="submit" style="visibility: hidden; margin-left: 100px; font-size: 18px; width: 170px;" id="goodquestion" class="goodquestion">Hyvä tehtävä :)</button>
                         <button type="submit" style="visibility: hidden; font-size: 18px; width: 170px;" id="badquestion" class="badquestion">Huono tehtävä :(</button>
                         <br>
-                        <h2 style="font-size: 50px; display: none;" id="answerresult"></h2>
+                        <h2 style="font-size: 30px; display: none;" id="answerresult"></h2>
                     </div>
                 </form>
                 
@@ -94,13 +100,50 @@
 
     <script>
 
+        var timeElapsed = 1;
+        var myTimer;
+        var minutes = 0;
+
+        function tick()
+        {
+            if (timeElapsed >= 60)
+            {
+                minutes++;
+                timeElapsed = 0;
+            }
+
+            if (timeElapsed >= 10)
+            {
+                document.getElementById("timer").innerHTML = minutes + ":" + timeElapsed;
+            }
+            else
+            {
+                document.getElementById("timer").innerHTML = minutes + ":0" + timeElapsed;
+            }
+            
+
+            timeElapsed++;
+        }
+
+        function start()
+        {
+            //call the first setInterval
+            myTimer = setInterval(tick, 1000);
+        }
+
+        function stop()
+        {
+            clearInterval(myTimer);
+        }
+
         $(document).ready()
         {
+            start();
 
-            function jsonEscape(str)  
-            {
-                return str.replace(/\n/g, "\\\\n").replace(/\r/g, "\\\\r").replace(/\t/g, "\\\\t");
-            }
+            // function jsonEscape(str)  
+            // {
+            //     return str.replace(/\n/g, "\\\\n").replace(/\r/g, "\\\\r").replace(/\t/g, "\\\\t");
+            // }
 
             // Use res.render() variables in client script: 
             // var test = '<%- JSON.stringify(Task) %>'
@@ -115,10 +158,6 @@
             // {
             //     parent.append(divs.splice(Math.floor(Math.random() * divs.length), 1)[0]);
             // }
-
-            console.log("RRRRRRRRRRRRRRRRRRR")
-            console.log(document.getElementById("correctOption").value)
-            console.log(document.getElementById("A").value)
         }
 
         $(function(){
@@ -126,6 +165,8 @@
             $("input:radio").change(function () {$("#answerbutton").attr("disabled", false);});
 
             var asd;
+
+            
 
             $("*.answerbutton").on("click", function()
             {
@@ -202,8 +243,6 @@
                     document.getElementById("descriptionimage").style.visibility = "visible";
                 }   
 
-                console.log("NNNNNNNNNNNNNNNNNN")
-                console.log(document.getElementById("correctOption"));
                 const corr = document.getElementById("correctOption").value;
                 document.getElementById("answerbutton").disabled = true;
                 document.getElementById("optionAlabel").style.backgroundColor = "#FFA07A";
@@ -220,16 +259,18 @@
 
                 document.getElementById("goodquestion").style.visibility = "visible";
                 document.getElementById("badquestion").style.visibility = "visible";
+                stop();
 
                 $.post("/tehtavat/answers",
                 {
                     answer: checkedradio,
-                    questionid: document.getElementById("questionidlabel").value
+                    questionid: document.getElementById("questionidlabel").value,
+                    seconds: timeElapsed,
+                    minutes: minutes
                 },
                 function(data, status){
                     alert("Data: " + data + "\nStatus: " + status);
                 });
-
             })
 
             $("*.goodquestion").on("click", function()
