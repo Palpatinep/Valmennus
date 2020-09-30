@@ -16,9 +16,14 @@
         <a href="/tehtavat">Tehtävät</a>
         <a href="/tulostaulu">Tulostaulu</a>
         <% if (locals.loggedin != true) { %>
-        <a href="/login">Kirjaudu</a>
-        <a href="/register">Rekisteröidy</a>
-        <label>EI KIRJAUTUNUT</label>
+        <form>
+            <a href="/register">Rekisteröidy</a>
+        </form>
+        <form>
+            <a href="/login">Kirjaudu</a>
+        </form>
+        
+        <label style="display: none">EI KIRJAUTUNUT</label>
         <% } else { %>
         <label style="display: none">KIRJAUTUNUT</label>
 
@@ -29,13 +34,12 @@
         <form>
             <a href="/profiili">Profiili</a>
         </form>
-
+        
+        <% } %>
         <br>
         <br>
 
         <hr>
-        
-        <% } %>
     </div>
 
 </nav>
