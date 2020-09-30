@@ -10,7 +10,7 @@
 <nav>
     <div class="sidenav">
         <div>
-            <img src="/photos/logo2.jpg">
+            <img src="https://lh3.googleusercontent.com/5nEwVXYOTHLjC2xnZbnwTjfIVOE0t94rMThtswza7fpRa7Dgi_IDO8yMyKKTP-95EnnRD_BTq8l_jK6i2fn_bsRKW6C3CKT-WtVLMUjaj7utsd1F0wWC-kiCtTxTk6r_UowwoRsyabXW0a_ySo6ELcSHWUGeDplVIVnLikw-rTE4t5RdU4v5ZL9FOamvnjYDKkA1ofeZClKLa_arEB6YbPH1EJvd03MlkV5wbcftig-a9WA569Y4PJjSKevfgi5rv3qPT1q7ayTH4iaOIZtteWaz54KMHd-Rh8uDu1PbgM4SUUt8YfxzBauJpUWOrDkGASIvOt7wxNSpmo_YkTN4wTU8JCqM0P9m_5UoAiZA79WbNzlKA4MPbo2ynUKndq4irz5-_uyfl1YHQjITIYWi2QBgZtcjaFQ5gsRWn12JR-BkCRF9OHco6RYK91PVLOnUsQwBZEiOrHuhVz4kIQSTcjvxfjHC1lgxT-uloIibOZlwGJV1AlrUj-zVajz2IvDSHQy9N_Aj77bKOrxQoE0gyImJ9ybFF7gjBjxnIA4xTflm9sLv5w-cRJl-KSAOpk0-FsjhrAPQHw0JC5UM0a9vqasdJjUbnhURmc-eM5dBBRFzX4DajGPAFzQl5BT-RvxrfOjKWhoOQZDMKQaW2HZnejpKB_yC02ZNF-qJMubJUTSEugjOoFUV4t-I=w345-h111-no?authuser=0">
         </div>
         <a style="margin-top: 80px;" href="/">Etusivu</a>
         <a href="/tehtavat">Tehtävät</a>
@@ -27,7 +27,7 @@
         </form>
 
         <form>
-            <a style="" href="/profiili">Profiili</a>
+            <a href="/profiili">Profiili</a>
         </form>
 
         <br>
@@ -43,32 +43,5 @@
 <div style="display: block">
     <%- body %>
 </div>
-
-<script>
-
-$(function() {
-
-  $("#.logoutid").on("click",function(e) {
-    e.preventDefault(); // cancel the link itself
-    $.post("/logout",function(data) {
-      $("#logoutid").html(data);
-    });
-  });
-
-});
-
-
-$(function()
-{
-
-
-
-    $("*logoutlink").on("click", function()
-    {
-        document.getElementById("logoutlink").style.color = "#03BD00";
-    }
-}
-
-</script>
 
 </html>
