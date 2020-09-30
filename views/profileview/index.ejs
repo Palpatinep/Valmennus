@@ -16,33 +16,33 @@
         
             <div class="profilesuccess">
                 <div class="profilecategory">
-                    <h5 class="profilelist">Kaikki kategoriat (<%= ((correctAnswers / answers.length).toFixed(2) * 100) || 0%> %)</h5>
+                    <h5 class="profilelist">Kaikki kategoriat (<%= Math.round(((correctAnswers / answers.length).toFixed(2) * 100) || 0) %> %)</h5>
                     <p class="profilelist">Vastauksia: <%= answers.length %></p>
                     <p class="profilelist">Oikein: <%= correctAnswers %></p>
                     <p class="profilelist">Väärin: <%= wrongAnswers %></p>
                 </div>
                 <div class="profilecategory">
-                    <h5 class="profilelist">Päätöksenteko (<%= ((PaatoscorrectAnswers / PaatosAnswers.length).toFixed(2) * 100) || 0 %> %)</h5>
+                    <h5 class="profilelist">Päätöksenteko (<%= Math.round(((PaatoscorrectAnswers / PaatosAnswers.length).toFixed(2) * 100) || 0) %> %)</h5>
                     <p class="profilelist">Vastauksia: <%= PaatosAnswers.length %></p>
                     <p class="profilelist">Oikein: <%= PaatoscorrectAnswers %></p>
                     <p class="profilelist">Väärin: <%= PaatoswrongAnswers %></p>
                 </div>
                 <br>
                 <div class="profilecategory">
-                    <h5 class="profilelist">Matematiikka (<%= ((MatematiikkacorrectAnswers / MatematiikkaAnswers.length).toFixed(2) * 100) || 0 %> %)</h5>
+                    <h5 class="profilelist">Matematiikka (<%= Math.round(((MatematiikkacorrectAnswers / MatematiikkaAnswers.length).toFixed(2) * 100) || 0) %> %)</h5>
                     <p class="profilelist">Vastauksia: <%= MatematiikkaAnswers.length %></p>
                     <p class="profilelist">Oikein: <%= MatematiikkacorrectAnswers %></p>
                     <p class="profilelist">Väärin: <%= MatematiikkawrongAnswers %></p>
                 </div>
                 <div class="profilecategory">
-                    <h5 class="profilelist">Englanti (<%= ((EnglanticorrectAnswers / EnglantiAnswers.length).toFixed(2) * 100) || 0 %> %)</h5>
+                    <h5 class="profilelist">Englanti (<%= Math.round(((EnglanticorrectAnswers / EnglantiAnswers.length).toFixed(2) * 100) || 0) %> %)</h5>
                     <p class="profilelist">Vastauksia: <%= EnglantiAnswers.length %></p>
                     <p class="profilelist">Oikein: <%= EnglanticorrectAnswers %></p>
                     <p class="profilelist">Väärin: <%= EnglantiwrongAnswers %></p>
                 </div>
                 <br>
                 <div class="profilecategory">
-                    <h5 class="profilelist">Suomi (<%= ((SuomicorrectAnswers / SuomiAnswers.length).toFixed(2) * 100) || 0 %> %)</h5>
+                    <h5 class="profilelist">Suomi (<%= Math.round(((SuomicorrectAnswers / SuomiAnswers.length).toFixed(2) * 100) || 0) %> %)</h5>
                     <p class="profilelist">Vastauksia: <%= SuomiAnswers.length %></p>
                     <p class="profilelist">Oikein: <%= SuomicorrectAnswers %></p>
                     <p class="profilelist">Väärin: <%= SuomiwrongAnswers %></p>

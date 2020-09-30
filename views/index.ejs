@@ -7,23 +7,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
-    
-
-    <div class="wrapper">
-        <h1>INDEX</h1>
-        <a href="/tehtavat/admin">Admin</a>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam faucibus lacus ac lacus pharetra, a dapibus urna faucibus. Quisque euismod neque eros. Morbi blandit turpis id semper convallis. Sed tincidunt, sem tempor rutrum tristique, augue erat egestas dolor, non efficitur felis nulla id ligula. Ut venenatis augue eu ex blandit, eget condimentum augue ultrices. Phasellus commodo fringilla enim, at laoreet neque suscipit vitae. Nulla vitae felis bibendum, aliquam erat eu, blandit lectus. Nam at nulla quis lectus lobortis consequat vel non metus. Maecenas in eros in ligula tempor ornare. Suspendisse nibh eros, viverra nec risus id, ultrices aliquet arcu. Mauris tristique mauris eu justo finibus mollis. Maecenas diam odio, euismod placerat efficitur et, ultricies nec libero.
-            
-            Suspendisse accumsan nibh odio. Etiam urna odio, condimentum et vulputate eu, rutrum ac nunc. In mattis pretium leo, nec facilisis dolor dapibus in. In cursus ut leo vitae maximus. Nullam diam mauris, sagittis vel ullamcorper eget, ultricies id metus. Aenean varius rutrum mauris sit amet semper. Curabitur rhoncus arcu massa, eget mollis metus consectetur et. Aenean fermentum maximus elit. Nulla facilisi.
-            
-            Vivamus mollis enim non cursus rutrum. Nullam vel lacinia nisl, vel laoreet diam. Morbi eget molestie nisl. Morbi placerat posuere eros sed ornare. Donec nunc ante, aliquet sed eros eget, luctus ullamcorper purus. Pellentesque blandit volutpat maximus. Suspendisse potenti. Duis vehicula imperdiet lacus et ultrices. Curabitur ac bibendum nunc. Nulla non nibh quam.
-            
-            Nulla in luctus justo. Nulla sodales tortor eu turpis consequat volutpat. Cras ac luctus mi. In hac habitasse platea dictumst. Proin euismod id orci rhoncus porttitor. Proin pharetra viverra neque vel accumsan. Vivamus suscipit magna vitae porttitor fermentum. Ut pharetra purus sed tincidunt suscipit. Aenean dictum risus eu tempor interdum. Nullam sed nulla eros. Fusce tristique dolor in mollis laoreet. Duis tempus vel risus eget commodo. Quisque eu tellus tincidunt, elementum turpis in, tincidunt sem.
-            
-            Praesent ornare lacinia mi a bibendum. Donec non augue tincidunt, congue sem ut, euismod tortor. Nam ut neque ut dolor faucibus tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed volutpat in ipsum vitae finibus. Suspendisse accumsan porta felis, sed hendrerit ligula pharetra nec. Quisque laoreet id urna at feugiat. Donec mi purus, laoreet quis tincidunt et, pretium viverra dolor.</p>
+    <div style="margin-top: 250px; overflow: visible;">
+        <img style="width: 100%;" src="https://lh3.googleusercontent.com/O7adA5gJEpx9VbavefQV0Bwf0RhtiZWE9A_gSZ_H5zUtEhclsaNwOT56aUA5u6io5Y_z8El0-_yZ91JhzznfjeUWtBk0e0_aBgqqxG1iztJCjIg-TpjZ9UIKTdTsaGC8C3PUMbL495tsEyIzkrWfsR_08QmXXK31tIOVxffv-HOoeH_TVtnDrJvlh9OgBSNxYbNqU5qEx_rPwbLpi6uJ7iuH79hybSHDmO0bij7pgehQABw_yiBqkwps9KrQBvZYAVROTsn-3G7uEB4loC7q6AwBso6AnBucUE1DO9uWYfgib-1yL4E1TaZYdWRvxzROPsxaEH2bawQelp0ZqBc1Z2bf70GzE6Ya6HCKTwdT8M_vUDOuqReOSkN_9h7x2x7ntpUbhlvAN4n55h9Gkj0W19Kth8BBL6EQvAoyq9NfVRobrtY8MTiZx4wY0oZaKrMzvp7XD4xdl2uUZ1Zs97OXND1hmTMC87rNFuW7NBxTjO4WuvbyHYr-obPZXRlUrJwhbKY6oCACh4CUiMrpVQALuK3OjDa2IScfE2Ypk7Nna5O1zCVa8IgU8ASqPjsG-0pGGhSqf9tMc-0kMq-5QGd6bIKTZfmRkbcV2gFS7qmee7MI2B5U8UD5PZilYdaWkPwnHlujv8d-tjQPjdEI_aByXJh7DAQubo7t6kgLKql6XMXc3f4xrm4hD9-q=w1920-h262-no?authuser=0">
     </div>
-    
+
+    <div style="margin-top: 30px;" class="wrapper">
+
+        <br>
+        <p style="font-size: 18px;">Sisältö <%= new Intl.DateTimeFormat('fi', { year: 'numeric', month: 'long', day: '2-digit'}).format(new Date()) %>:</p>
+
+        <p style="font-size: 24px;">Ammattikorkeakoulu</p>
+        <li style="font-size: 18px;">Päätöksentekotaidot</li>
+        <li style="font-size: 18px;">Matematiikka</li>
+        <li style="text-decoration: line-through; font-size: 18px;">Suomi</li>
+        <li style="font-size: 18px;">Englanti</li>
+        <li style="text-decoration: line-through; font-size: 18px;">Eettiset taidot</li>
+
+        <br>
+        <br>
+        <p style="font-size: 18px;">To Do:</p>
+
+        <p style="text-decoration: line-through; font-size: 24px;">Matematiikka: osioiden jaottelu</p>
+        <p style="text-decoration: line-through; font-size: 24px;">Värit, kuvat, ikonit ja fontit</p>
+        <p style="text-decoration: line-through; font-size: 24px;">Kauppakorkeakoulu</p>
+        <p style="text-decoration: line-through; font-size: 24px;">Teknillinen Korkeakoulu</p>
+        <p style="text-decoration: line-through; font-size: 24px;">Lääketieteellinen</p>
+
+    </div>
+    <a href="/tehtavat/admin">Admin</a>
 </body>
 </html>
 

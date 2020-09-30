@@ -9,6 +9,9 @@
 
 <nav>
     <div class="sidenav">
+        <div>
+            <img src="/photos/logo2.jpg">
+        </div>
         <a style="margin-top: 80px;" href="/">Etusivu</a>
         <a href="/tehtavat">Tehtävät</a>
         <a href="/tulostaulu">Tulostaulu</a>
@@ -17,18 +20,55 @@
         <a href="/register">Rekisteröidy</a>
         <label>EI KIRJAUTUNUT</label>
         <% } else { %>
-        <label>KIRJAUTUNUT</label>
-        <a href="/profiili">Profiili</a>
-        <form action="/logout?_method=DELETE" method="POST">
-            <button type="submit">Log Out</button>
-          </form>
+        <label style="display: none">KIRJAUTUNUT</label>
+
+        <form action="/logout?_method=POST" method="POST">
+            <button type="submit">Kirjaudu Ulos</button>
+        </form>
+
+        <form>
+            <a style="" href="/profiili">Profiili</a>
+        </form>
+
+        <br>
+        <br>
+
+        <hr>
+        
         <% } %>
     </div>
 
 </nav>
 
-<div>
+<div style="display: block">
     <%- body %>
 </div>
+
+<script>
+
+$(function() {
+
+  $("#.logoutid").on("click",function(e) {
+    e.preventDefault(); // cancel the link itself
+    $.post("/logout",function(data) {
+      $("#logoutid").html(data);
+    });
+  });
+
+});
+
+
+$(function()
+{
+
+
+
+    $("*logoutlink").on("click", function()
+    {
+        document.getElementById("logoutlink").style.color = "#03BD00";
+    }
+}
+
+</script>
 
 </html>

@@ -39,7 +39,7 @@ router.get("/", async (req, res) =>
     }
 })
 
-router.delete('/logout', (req, res) => 
+router.post('/logout', (req, res) => 
 {
     req.logOut()
     res.redirect('/login')
