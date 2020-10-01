@@ -316,7 +316,7 @@ router.get("/matematiikka", async (req, res) =>
         const answers = await AnswerModel.find({userid: req.user.id})
 
         const MatematiikkaAnswers = answers.filter(function (el){
-            return el.questionCategory == "La Liga"
+            return el.questionCategory == "Matematiikka"
         })
         var MatematiikkacorrectAnswers = 0;
         var MatematiikkawrongAnswers = 0;

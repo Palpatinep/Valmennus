@@ -29,7 +29,7 @@ router.get("/:id", async (req, res) =>
         return el.questionCategory == "Päätöksentekotaidot"
     })
     const MatematiikkaAnswers = answers.filter(function (el){
-        return el.questionCategory == "La Liga"
+        return el.questionCategory == "Matematiikka"
     })
     const EnglantiAnswers = answers.filter(function (el){
         return el.questionCategory == "Englanti"
