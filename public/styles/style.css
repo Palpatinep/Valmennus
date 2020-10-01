@@ -218,3 +218,28 @@ p{
     color: #d8d8d8;
     background-color: transparent;
 }
+
+.infotext{
+    display: none;
+}
+
+
+@media only screen and (max-width: 1000px)
+{
+  .wrapper{
+    display: none;
+  }
+  .sidenav{
+      display: none;
+  }
+  img{
+      display: none;
+  }
+  a{
+      display: none;
+  }
+  .infotext{
+    display: block;
+    font-size: 20px;
+}
+}
