@@ -30,6 +30,7 @@ const registerrouter = register.router;
 const loginrouter = require("./routes/loginrouter.js");
 const profilerouter = require("./routes/profilerouter.js");
 const leaderboardrouter = require("./routes/leaderboardrouter.js");
+const hirevuerouter = require("./routes/hirevuerouter.js");
 
 app.use(flash())
 app.use(session({
@@ -51,5 +52,6 @@ app.use("/login", loginrouter);
 app.use("/register", registerrouter);
 app.use("/profiili", profilerouter);
 app.use("/tulostaulu", leaderboardrouter)
+app.use("/tehtavat/hirevue", hirevuerouter);
 
 app.listen(process.env.PORT || 3000);

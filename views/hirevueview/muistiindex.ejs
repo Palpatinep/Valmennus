@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"" ></script>
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <title>Hirevue - Muistipeli</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="wrapper">
+        <p id="timer" style="font-size: 32px; float: right; margin-right: 5px; margin-top: 10px;">2:00</p>
+
+        <h1 id="headerinfo" style="margin-bottom: 80px;" >Muista aina edellinen kuvio</h1>
+        <h5 id="pisteetoikein" style="display: none;" >0</h5>
+        <h5 id="pisteetvaarin" style="display: none;">0</h5>
+        <h5 id="levellabel" style="display: none;">1</h5>
+        <h5 id="jonolabel" style="display: none;">0</h5>
+        <img id="hexaimg" style="width: 400px" src="<%=pics[0]%>">
+
+        <button style="width: 100px; height: 100px; font-size: 25px;" class="okbutton" id="okbutton">Aloita</button>
+        <button style="width: 100px; height: 100px; font-size: 20px; visibility: hidden;" class="nextbutton" id="nextbutton">Seuraava kuvio</button>
+        <button class="vaarinbutton" id="vaarinbutton" style="width: 100px; height: 100px; font-size: 25px; visibility: hidden;">Väärin</button>
+        <button class="oikeinbutton" id="oikeinbutton" style="width: 100px; height: 100px; font-size: 25px; visibility: hidden;">Oikein</button>
+    </div>
+
+    <script>
+
+        var timeElapsed = 59;
+        var myTimer;
+        var minutes = 1;
+        var pisteet = 0;
+
+        function tick()
+        {
+            if (timeElapsed < 0)
+            {
+                minutes--;
+                timeElapsed = 59;
+            }
+
+            if (timeElapsed <= 0 && minutes == 0)
+            {
+                alert("Peli loppui. Pisteet: " + pisteet)
+                location.reload();
+            }
+
+            if (timeElapsed >= 10)
+            {
+                document.getElementById("timer").innerHTML = minutes + ":" + timeElapsed;
+            }
+            else
+            {
+                document.getElementById("timer").innerHTML = minutes + ":0" + timeElapsed;
+            }
+
+            timeElapsed--;
+        }
+
+        function start()
+        {
+            myTimer = setInterval(tick, 1000);
+        }
+
+        function stop()
+        {
+            clearInterval(myTimer);
+        }
+
+    $(function(){
+
+        var level = 1;
+        var jono = [];
+        var jononsija = 1;
+
+
+        $("*.okbutton").on("click", function()
+        {
+            $.ajax(
+            {
+                    type: "GET",
+                    url: "/tehtavat/hirevue/muisti/data",
+                    dataType: "json",
+                    success: function(data)
+                    {
+                        jono = data;
+                    }
+            })
+
+            document.getElementById("okbutton").style.visibility = "hidden";
+            document.getElementById("oikeinbutton").style.visibility = "visible";
+            document.getElementById("vaarinbutton").style.visibility = "visible";
+
+            document.getElementById("headerinfo").innerHTML = "Onko kuvio samanlainen kuin edellinen kuvio?"
+
+            start();
+        })
+
+        $("*.oikeinbutton").on("click", function()
+        {
+            if (level == 1)
+            {
+                if(jono[jononsija] == jono[jononsija - 1])
+                {
+                    pisteet++;
+                }
+                else
+                {
+                    pisteet--;
+                }
+            }
+            else if (level == 2)
+            {
+                if(jono[jononsija] == jono[jononsija - 2])
+                {
+                    pisteet++;
+                }
+                else
+                {
+                    pisteet--;
+                }
+            }
+            else if (level == 3)
+            {
+                if(jono[jononsija] == jono[jononsija - 3])
+                {
+                    pisteet++;
+                }
+                else
+                {
+                    pisteet--;
+                }
+            }    
+
+            jononsija++;
+            
+            document.getElementById("oikeinbutton").disabled = true;
+            document.getElementById("vaarinbutton").disabled = true;
+
+            $("#hexaimg").fadeOut(500, function(){
+                document.getElementById("hexaimg").src = jono[jononsija];
+                document.getElementById("oikeinbutton").disabled = false;
+                document.getElementById("vaarinbutton").disabled = false;
+            })
+            
+            $("#hexaimg").fadeIn(500)
+
+
+            document.getElementById("jonolabel").innerHTML = jononsija            
+
+            document.getElementById("pisteetoikein").innerHTML = pisteet;
+
+            if (jononsija > 10 && jononsija <= 11)
+            {
+                level++;
+                document.getElementById("headerinfo").innerHTML = "Onko kuvio samanlainen kuin edellistä edellinen kuvio?"
+                document.getElementById("levellabel").innerHTML = level;
+                document.getElementById("nextbutton").style.visibility = "visible"
+                document.getElementById("oikeinbutton").style.visibility = "hidden"
+                document.getElementById("vaarinbutton").style.visibility = "hidden"
+            }
+            if (jononsija > 40 && jononsija <= 41)
+            {
+                level++;
+                document.getElementById("headerinfo").innerHTML = "Onko kuvio samanlainen kuin kolme kuviota sitten? (kaksi kuviota välissä)"
+                document.getElementById("levellabel").innerHTML = level;
+                document.getElementById("nextbutton").style.visibility = "visible"
+                document.getElementById("oikeinbutton").style.visibility = "hidden"
+                document.getElementById("vaarinbutton").style.visibility = "hidden"
+            }
+            if (jononsija > 100)
+            {
+                alert("Peli loppui. Pisteet: " + pisteet)
+                location.reload();
+            }
+        })
+
+        $("*.vaarinbutton").on("click", function()
+        {
+            if (level == 1)
+            {
+                if(jono[jononsija] == jono[jononsija - 1])
+                {
+                    pisteet--;
+                }
+                else
+                {
+                    pisteet++;
+                }
+            }
+            else if (level == 2)
+            {
+                if(jono[jononsija] == jono[jononsija - 2])
+                {
+                    pisteet--;
+                }
+                else
+                {
+                    pisteet++;
+                }
+            }
+            else if (level == 3)
+            {
+                if(jono[jononsija] == jono[jononsija - 3])
+                {
+                    pisteet--;
+                }
+                else
+                {
+                    pisteet++;
+                }
+            }  
+
+            jononsija++;
+
+            document.getElementById("oikeinbutton").disabled = true;
+            document.getElementById("vaarinbutton").disabled = true;
+
+            $("#hexaimg").fadeOut(500, function(){
+                document.getElementById("hexaimg").src = jono[jononsija];
+                document.getElementById("oikeinbutton").disabled = false;
+                document.getElementById("vaarinbutton").disabled = false;
+            })
+            $("#hexaimg").fadeIn(500)
+
+            document.getElementById("jonolabel").innerHTML = jononsija            
+
+            document.getElementById("pisteetoikein").innerHTML = pisteet;
+
+            if (jononsija > 10 && jononsija <= 11)
+            {
+                level++;
+                document.getElementById("headerinfo").innerHTML = "Onko kuvio samanlainen kuin edellistä edellinen kuvio?"
+                document.getElementById("levellabel").innerHTML = level;
+                document.getElementById("nextbutton").style.visibility = "visible"
+                document.getElementById("oikeinbutton").style.visibility = "hidden"
+                document.getElementById("vaarinbutton").style.visibility = "hidden"
+            }
+            if (jononsija > 40 && jononsija <= 41)
+            {
+                level++;
+                document.getElementById("headerinfo").innerHTML = "Onko kuvio samanlainen kuin kolme kuviota sitten? (kaksi kuviota välissä)"
+                document.getElementById("levellabel").innerHTML = level;
+                document.getElementById("nextbutton").style.visibility = "visible"
+                document.getElementById("oikeinbutton").style.visibility = "hidden"
+                document.getElementById("vaarinbutton").style.visibility = "hidden"
+            }
+        })
+
+        $("*.nextbutton").on("click", function()
+        {
+            jononsija++;
+
+            $("#hexaimg").fadeOut(500, function(){
+                document.getElementById("hexaimg").src = jono[jononsija];
+            })
+            
+            $("#hexaimg").fadeIn(500)
+
+            if (jononsija > 12 && jononsija <= 13)
+            {
+                document.getElementById("nextbutton").style.visibility = "hidden"
+                document.getElementById("oikeinbutton").style.visibility = "visible"
+                document.getElementById("vaarinbutton").style.visibility = "visible"
+            }
+            if (jononsija > 43 && jononsija <= 44)
+            {
+                document.getElementById("nextbutton").style.visibility = "hidden"
+                document.getElementById("oikeinbutton").style.visibility = "visible"
+                document.getElementById("vaarinbutton").style.visibility = "visible"
+            }
+        })
+    })
+
+    </script>
+</body>
+</html>

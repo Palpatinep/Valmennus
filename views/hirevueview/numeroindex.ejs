@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"" ></script>
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <title>Hirevue - Numeropeli</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="wrapper">
+        <p id="timer" style="font-size: 32px; float: right; margin-right: 5px; margin-top: 10px;">0:20</p>
+
+        <input style="display: none;" id="vaikeusaste" value=<%=tehtava.vaikeusaste%>></input>
+        <input style="display: none;" id="oikein" value=<%=tehtava.oikein%>></input>
+        <p style="font-size: 30px;">Valitse kaksi tai useampaa lukua, joiden lopputulos on:</p>
+        <br>
+        <h5 id="numero" style="font-size: 80px; display: inline-block; margin-right: 50px;"><%=tehtava.numero%></h5>
+        <h5 style="display: inline-block; font-size: 50px;" id="merkki">(<%=tehtava.merkki%>)</h5>
+        <h5 id="vastaus"></h5>
+
+        <div style="margin-top: 100px" id="shuffle">
+            <button id="vaihtoehto1" class="vaihtoehtobutton" style="margin-right: 20px; width: 100px; height: 100px; font-size: 40px; background-color: rgb(243, 242, 240);" value=<%=tehtava.vaihtoehto1%>><%=tehtava.vaihtoehto1%></button>
+            <button id="vaihtoehto2" class="vaihtoehtobutton" style="margin-right: 20px; width: 100px; width: 100px; height: 100px; font-size: 40px; background-color: rgb(243, 242, 240);" value=<%=tehtava.vaihtoehto2%>><%=tehtava.vaihtoehto2%></button>
+            <button id="vaihtoehto3" class="vaihtoehtobutton" style="margin-right: 20px; width: 100px; width: 100px; height: 100px; font-size: 40px; background-color: rgb(243, 242, 240);" value=<%=tehtava.vaihtoehto3%>><%=tehtava.vaihtoehto3%></button>
+            <button id="vaihtoehto4" class="vaihtoehtobutton" style="margin-right: 20px; width: 100px; width: 100px; height: 100px; font-size: 40px; background-color: rgb(243, 242, 240);" value=<%=tehtava.vaihtoehto4%>><%=tehtava.vaihtoehto4%></button>
+            <button id="vaihtoehto5" class="vaihtoehtobutton" style="margin-right: 20px; width: 100px; width: 100px; height: 100px; font-size: 40px; background-color: rgb(243, 242, 240);" value=<%=tehtava.vaihtoehto5%>><%=tehtava.vaihtoehto5%></button>
+            <button id="vaihtoehto6" class="vaihtoehtobutton" style="margin-right: 20px; width: 100px; width: 100px; height: 100px; font-size: 40px; background-color: rgb(243, 242, 240); display: none" value=<%=tehtava.vaihtoehto6%>><%=tehtava.vaihtoehto6%></button>
+            <button id="vaihtoehto7" class="vaihtoehtobutton" style="margin-right: 20px; width: 100px; width: 100px; height: 100px; font-size: 40px; background-color: rgb(243, 242, 240); display: none;" value=<%=tehtava.vaihtoehto7%>><%=tehtava.vaihtoehto7%></button>
+        </div>
+        
+        <br>
+        <button style="width: 200px; height: 150px; font-size: 80px;" id="okbutton" class="okbutton">OK</button>
+    </div>
+
+    <script>
+
+        var timeElapsed = 19;
+        var myTimer;
+        var minutes = 0;
+
+        function tick()
+        {
+            if (timeElapsed >= 60)
+            {
+                minutes++;
+                timeElapsed = 0;
+            }
+
+            if (timeElapsed <= 0)
+            {
+                document.getElementById("okbutton").click();
+            }
+
+            if (timeElapsed >= 10)
+            {
+                document.getElementById("timer").innerHTML = minutes + ":" + timeElapsed;
+            }
+            else
+            {
+                document.getElementById("timer").innerHTML = minutes + ":0" + timeElapsed;
+            }
+
+            timeElapsed--;
+        }
+
+        function start()
+        {
+            myTimer = setInterval(tick, 1000);
+        }
+
+        function stop()
+        {
+            clearInterval(myTimer);
+        }
+
+        $(document).ready()
+        {
+            start();
+
+            // sekoitus
+            var parent = $("#shuffle");
+            var divs = parent.children();
+
+            while (divs.length) 
+            {
+                parent.append(divs.splice(Math.floor(Math.random() * divs.length), 1)[0]);
+            }
+        }
+
+        $(function(){
+        
+            $("*.vaihtoehtobutton").on("click", function()
+            {
+                if (this.style.backgroundColor == "rgb(243, 242, 240)")
+                {
+                    this.style.background = "rgb(153,204,255)";
+                }
+                else
+                {
+                    this.style.background = "rgb(243, 242, 240)";
+                }
+            })
+
+            $("*.okbutton").on("click", function()
+            {
+                timeElapsed = 15;
+
+                var valinnat = [];
+
+                if (document.getElementById("vaihtoehto1").style.backgroundColor == "rgb(153, 204, 255)")
+                {
+                    valinnat.push(document.getElementById("vaihtoehto1").value)
+                }
+                if (document.getElementById("vaihtoehto2").style.backgroundColor == "rgb(153, 204, 255)")
+                {
+                    valinnat.push(document.getElementById("vaihtoehto2").value)
+                }
+                if (document.getElementById("vaihtoehto3").style.backgroundColor == "rgb(153, 204, 255)")
+                {
+                    valinnat.push(document.getElementById("vaihtoehto3").value)
+                }
+                if (document.getElementById("vaihtoehto4").style.backgroundColor == "rgb(153, 204, 255)")
+                {
+                    valinnat.push(document.getElementById("vaihtoehto4").value)
+                }
+                if (document.getElementById("vaihtoehto5").style.backgroundColor == "rgb(153, 204, 255)")
+                {
+                    valinnat.push(document.getElementById("vaihtoehto5").value)
+                }
+                if (document.getElementById("vaihtoehto6").style.backgroundColor == "rgb(153, 204, 255)")
+                {
+                    valinnat.push(document.getElementById("vaihtoehto6").value)
+                }
+
+                document.getElementById("vaihtoehto1").style.backgroundColor = "rgb(243, 242, 240)";
+                document.getElementById("vaihtoehto2").style.backgroundColor = "rgb(243, 242, 240)";
+                document.getElementById("vaihtoehto3").style.backgroundColor = "rgb(243, 242, 240)";
+                document.getElementById("vaihtoehto4").style.backgroundColor = "rgb(243, 242, 240)";
+                document.getElementById("vaihtoehto5").style.backgroundColor = "rgb(243, 242, 240)";
+                document.getElementById("vaihtoehto6").style.backgroundColor = "rgb(243, 242, 240)";
+
+                if(valinnat == document.getElementById("oikein").value)
+                {
+                    document.getElementById("vastaus").innerHTML = "OIKEIN"
+                    document.getElementById("vastaus").style.color = "rgb(0, 255, 0)"
+
+                    var vaikeus = parseInt(document.getElementById("vaikeusaste").value)
+
+                    if (vaikeus < 6)
+                    {
+                        vaikeus++;  
+                    }
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/tehtavat/hirevue/numero/" + vaikeus,
+                        dataType: "json",
+                        success: function(data)
+                        {
+                            document.getElementById("vaikeusaste").value = data.vaikeusaste;
+                            document.getElementById("vaikeusaste").innerHTML = data.vaikeusaste;
+                            document.getElementById("oikein").value = data.oikein;
+                            document.getElementById("oikein").innerHTML = data.oikein;
+                            document.getElementById("merkki").innerHTML = data.merkki;
+                            document.getElementById("numero").innerHTML = data.numero;
+                            document.getElementById("vaihtoehto1").innerHTML = data.vaihtoehto1;
+                            document.getElementById("vaihtoehto1").value = data.vaihtoehto1;
+                            document.getElementById("vaihtoehto2").innerHTML = data.vaihtoehto2;
+                            document.getElementById("vaihtoehto2").value = data.vaihtoehto2;
+                            document.getElementById("vaihtoehto3").innerHTML = data.vaihtoehto3;
+                            document.getElementById("vaihtoehto3").value = data.vaihtoehto3;
+                            document.getElementById("vaihtoehto4").innerHTML = data.vaihtoehto4;
+                            document.getElementById("vaihtoehto4").value = data.vaihtoehto4;
+                            document.getElementById("vaihtoehto5").innerHTML = data.vaihtoehto5;
+                            document.getElementById("vaihtoehto5").value = data.vaihtoehto5;
+                            
+                            if(data.vaihtoehto6 != undefined)
+                            {
+                                document.getElementById("vaihtoehto6").style.display = "inline-block";
+                                document.getElementById("vaihtoehto6").innerHTML = data.vaihtoehto6;
+                                document.getElementById("vaihtoehto6").value = data.vaihtoehto6;
+                            }
+                            else
+                            {
+                                document.getElementById("vaihtoehto6").style.display = "none";
+                            }
+
+                            if(data.vaihtoehto7 != undefined)
+                            {
+                                document.getElementById("vaihtoehto7").style.display = "inline-block";
+                                document.getElementById("vaihtoehto7").innerHTML = data.vaihtoehto7;
+                                document.getElementById("vaihtoehto7").value = data.vaihtoehto7;
+                            }
+                            else
+                            {
+                                document.getElementById("vaihtoehto7").style.display = "none";
+                            }
+                        }
+
+                    });
+                }
+                else
+                {
+                    document.getElementById("vastaus").innerHTML = "VÄÄRIN"
+                    document.getElementById("vastaus").style.color = "red"
+
+                    var vaikeus = parseInt(document.getElementById("vaikeusaste").value)
+
+                    if (vaikeus > 1)
+                    {
+                        vaikeus--;
+                    }
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/tehtavat/hirevue/numero/" + vaikeus,
+                        dataType: "json",
+                        success: function(data)
+                        {
+                            document.getElementById("vaikeusaste").value = data.vaikeusaste;
+                            document.getElementById("vaikeusaste").innerHTML = data.vaikeusaste;
+                            document.getElementById("oikein").value = data.oikein;
+                            document.getElementById("oikein").innerHTML = data.oikein;
+                            document.getElementById("merkki").innerHTML = data.merkki;
+                            document.getElementById("numero").innerHTML = data.numero;
+                            document.getElementById("vaihtoehto1").innerHTML = data.vaihtoehto1;
+                            document.getElementById("vaihtoehto1").value = data.vaihtoehto1;
+                            document.getElementById("vaihtoehto2").innerHTML = data.vaihtoehto2;
+                            document.getElementById("vaihtoehto2").value = data.vaihtoehto2;
+                            document.getElementById("vaihtoehto3").innerHTML = data.vaihtoehto3;
+                            document.getElementById("vaihtoehto3").value = data.vaihtoehto3;
+                            document.getElementById("vaihtoehto4").innerHTML = data.vaihtoehto4;
+                            document.getElementById("vaihtoehto4").value = data.vaihtoehto4;
+                            document.getElementById("vaihtoehto5").innerHTML = data.vaihtoehto5;
+                            document.getElementById("vaihtoehto5").value = data.vaihtoehto5;
+                            
+                            if(data.vaihtoehto6 != undefined)
+                            {
+                                document.getElementById("vaihtoehto6").style.display = "inline-block";
+                                document.getElementById("vaihtoehto6").innerHTML = data.vaihtoehto6;
+                                document.getElementById("vaihtoehto6").value = data.vaihtoehto6;
+                            }
+                            else
+                            {
+                                document.getElementById("vaihtoehto6").style.display = "none";
+                            }
+
+                            if(data.vaihtoehto7 != undefined)
+                            {
+                                document.getElementById("vaihtoehto7").style.display = "inline-block";
+                                document.getElementById("vaihtoehto7").innerHTML = data.vaihtoehto7;
+                                document.getElementById("vaihtoehto7").value = data.vaihtoehto7;
+                            }
+                            else
+                            {
+                                document.getElementById("vaihtoehto7").style.display = "none";
+                            }
+                        }
+
+                    });
+                }
+
+                
+            })
+        
+        })
+
+
+    </script>
+
+</body>
+</html>
