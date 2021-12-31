@@ -7,6 +7,7 @@ const UserModel = require("../models/UserModel");
 const AnswerModel = require("../models/AnswerModel");
 const TaskModel = require("../models/TaskModel");
 const { isValidObjectId } = require("mongoose");
+let fs = require("fs");
 
 router.use(bodyParser.urlencoded({ limit: "10mb", extended: false }));
 
@@ -23,33 +24,16 @@ router.get("/", async (req, res) =>
         loggedin = false;
     }
 
-    res.render("taskview/schoolmenu.ejs",
+    res.render("taskview/koulut.ejs",
     {
         loggedin: loggedin
     })
 
 })
 
-router.get("/amk", async (req, res) =>
-{
-    let loggedin = false;
 
-    if (req.isAuthenticated())
-    {
-        loggedin = true;
-    }
-    else
-    {
-        loggedin = false;
-    }
 
-    res.render("taskview/amkmenu.ejs",
-    {
-        loggedin: loggedin
-    })
-})
-
-router.get("/kaikki", async (req, res) => 
+router.get("/amk", async (req, res) => 
 {
     let loggedin = false;
 
@@ -179,7 +163,7 @@ router.get("/kaikki", async (req, res) =>
             }
         }
 
-        res.render("taskview/index.ejs", 
+        res.render("taskview/tehtavat.ejs", 
         {
             loggedin: loggedin,
             Task: TaskFind[rnd],

@@ -5,7 +5,7 @@ if (process.env.NODE_ENV !== "production")
 
 const express = require("express");
 const app = express();
-const expresslayouts = require("express-ejs-layouts");
+// const expresslayouts = require("express-ejs-layouts");
 const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
 const passport = require('passport');
@@ -21,7 +21,7 @@ db.on("open", () => console.log("Connected to Mongoose"));
 
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
-app.set("layout", "layouts/indexlayout");
+// app.set("layout", "layouts/indexlayout");
 
 const indexrouter = require("./routes/indexrouter.js");
 const taskrouter = require("./routes/taskrouter.js");
@@ -43,7 +43,7 @@ app.use(passport.session())
 app.use(methodOverride('_method'))
 
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: false }));
-app.use(expresslayouts);
+// app.use(expresslayouts);
 app.use(express.urlencoded({extended: false}));
 app.use(express.static("public"));
 app.use("/", indexrouter);

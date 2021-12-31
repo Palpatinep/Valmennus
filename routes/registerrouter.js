@@ -20,7 +20,7 @@ router.get("/", checkNotAuthenticated, async (req, res) =>
     {
         loggedin = false;
     }
-    res.render("registerview/index.ejs",
+    res.render("registerview/register.ejs",
     {
       loggedin: loggedin
     });

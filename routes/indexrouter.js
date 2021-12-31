@@ -23,7 +23,7 @@ router.get("/", async (req, res) =>
 
     if (loggedin)
     {
-        res.render("index.ejs",
+        res.render("etusivu.ejs",
         {
             users: users,
             loggedin: loggedin
@@ -31,7 +31,7 @@ router.get("/", async (req, res) =>
     }
     else
     {
-        res.render("index.ejs",
+        res.render("etusivu.ejs",
         {
             users: users,
             loggedin: loggedin

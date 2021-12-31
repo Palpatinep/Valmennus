@@ -30,7 +30,7 @@ router.get("/", checkNotAuthenticated, async (req, res) =>
     {
         loggedin = false;
     }
-    res.render("loginview/index.ejs",
+    res.render("loginview/kirjaudu.ejs",
     {
       loggedin: loggedin
     });
